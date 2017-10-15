@@ -8,14 +8,18 @@ import com.teammj.model.persons.base.Athlete;
 import com.teammj.model.persons.base.Official;
 import com.teammj.model.persons.base.Person;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
@@ -31,6 +35,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.UUID;
 
 public class Main implements Initializable {
 
@@ -38,7 +43,7 @@ public class Main implements Initializable {
     private static final ObservableList<Athlete> athletes = FXCollections.observableArrayList();
     private static final ObservableList<Official> officials = FXCollections.observableArrayList();
     private static final ObservableList<Person> persons = FXCollections.observableArrayList();
-    private static final ObservableList<Person> gamePersons = FXCollections.observableArrayList();
+    private static final ObservableList<Competitor> gamePersons = FXCollections.observableArrayList();
     private static final ObservableList<Game> games = FXCollections.observableArrayList();
     private static final ObservableList<AthleteMap> athleteGameMap = FXCollections.observableArrayList();
 
@@ -60,7 +65,7 @@ public class Main implements Initializable {
     public ComboBox cmbRState;
     public Label addRfeedBack;
     public Button addReferee;
-    public TableView<Person> tblGameParticipants;
+    public TableView<Competitor> tblGameParticipants;
     public Label addPfeedback;
     public ComboBox cmbGType;
     public Button startRaceBtn;
@@ -185,46 +190,37 @@ public class Main implements Initializable {
     }
 
     private void setupGamePersonsTable() {
-        TableColumn<Person, String> nameColumn = new TableColumn<>("Name");
-        TableColumn<Person, DATA.PERSON_TYPE> typeColumn = new TableColumn<>("Type");
+        TableColumn<Competitor, String> nameColumn = new TableColumn<>("Name");
+        TableColumn<Competitor, DATA.PERSON_TYPE> typeColumn = new TableColumn<>("Type");
+        TableColumn<Competitor, Boolean> predictedWinner = new TableColumn<>("Winner?");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("personType"));
+        predictedWinner.setCellValueFactory(new PropertyValueFactory<>("predictedWinner"));
+        predictedWinner.setCellFactory(tc -> new CheckBoxTableCell<Competitor, Boolean>() {
+            @Override
+            public void updateItem(Boolean item, boolean empty) {
+                super.updateItem(item, empty);
+                if(item != null) {
+                    if(item) checkPredictedErr();
+                }
+            }
+        });
 
         nameColumn.setPrefWidth(140.0);
 
         tblGameParticipants.setOnDragOver(event -> {
-            /* data is dragged over the target */
-            /* accept it only if it is  not dragged from the same node
-             * and if it has a string data */
+
             if (event.getGestureSource() != tblGameParticipants &&
                     event.getDragboard().hasString()) {
-                /* allow for both copying and moving, whatever user chooses */
                 event.acceptTransferModes(TransferMode.COPY);
             }
-
             event.consume();
         });
 
-        tblGameParticipants.setOnDragEntered(event -> {
-            /* the drag-and-drop gesture entered the target */
-            /* show to the user that it is an actual gesture target */
-            if (event.getGestureSource() != tblGameParticipants &&
-                    event.getDragboard().hasString()) {
-                tblGameParticipants.setStyle("-fx-text-fill: PINK");
-            }
-            event.consume();
-        });
-
-        tblGameParticipants.setOnDragExited(event -> {
-            /* mouse moved away, remove the graphical cues */
-            tblGameParticipants.setStyle("-fx-text-fill: BLACK");
-
-            event.consume();
-        });
 
         tblGameParticipants.setOnDragDropped(event -> {
             String sGameType = (String) cmbGType.getValue();
-            if(sGameType == null) {
+            if (sGameType == null) {
                 addPfeedback.setText("Please select game type first!");
                 addPfeedback.getStyleClass().add("warning");
                 gameNotif("Drag Persons in Here!");
@@ -237,7 +233,7 @@ public class Main implements Initializable {
 
                 final Integer[] refCount = {0};
                 gamePersons.forEach(person -> {
-                    if (person instanceof Referee) {
+                    if (person.getPersonType() == DATA.PERSON_TYPE.Referee) {
                         refCount[0]++;
                     }
                 });
@@ -246,54 +242,54 @@ public class Main implements Initializable {
                         final boolean[] pleaseReturn = {false};
                         // Check for duplicates
                         gamePersons.forEach(person2 -> {
-                            if (Objects.equals(person2.getUniqueID().toString(), possibleUUID)) {
+                            if (Objects.equals(person2.getUuid().toString(), possibleUUID)) {
                                 addPfeedback.setText("Cannot add the same person twice!");
                                 addPfeedback.getStyleClass().add("warning");
                                 gameNotif("Drag Persons in Here!");
                                 pleaseReturn[0] = true;
                             }
                         });
-                        if(pleaseReturn[0]) return;
-                        if(!(person instanceof SuperAthlete) && !(person instanceof Referee)) {
+                        if (pleaseReturn[0]) return;
+                        if (person.getPersonType() != DATA.PERSON_TYPE.SuperAthlete && person.getPersonType() != DATA.PERSON_TYPE.Referee) {
                             switch (sGameType) {
                                 case "Swimming":
-                                    if(!(person instanceof Swimmer)) {
+                                    if (person.getPersonType() != DATA.PERSON_TYPE.Swimmer) {
                                         pleaseReturn[0] = true;
                                     }
                                     break;
                                 case "Sprinting":
-                                    if(!(person instanceof Sprinter)) {
+                                    if (person.getPersonType() != DATA.PERSON_TYPE.Sprinter) {
                                         pleaseReturn[0] = true;
                                     }
                                     break;
                                 case "Cycling":
-                                    if(!(person instanceof Cyclist)) {
+                                    if (person.getPersonType() != DATA.PERSON_TYPE.Cyclist) {
                                         pleaseReturn[0] = true;
                                     }
                                     break;
                             }
                         }
-                        if(pleaseReturn[0]) {
+                        if (pleaseReturn[0]) {
                             addPfeedback.setText("Please add appropriate athlete to game!");
                             addPfeedback.getStyleClass().add("warning");
                             gameNotif("Drag Persons in Here!");
                             return;
                         }
-                        if (person instanceof Referee) {
+                        if (person.getPersonType() == DATA.PERSON_TYPE.Referee) {
                             if (refCount[0] == 0) {
-                                gamePersons.add(person);
+                                gamePersons.add(new Competitor(person.getName(), person.getUniqueID(), false, person.getPersonType()));
                             } else {
                                 addPfeedback.setText("Cannot add more than 2 refs!");
                                 addPfeedback.getStyleClass().add("warning");
                                 gameNotif("Drag Persons in Here!");
                             }
                         } else {
-                            gamePersons.add(person);
+                            gamePersons.add(new Competitor(person.getName(), person.getUniqueID(), false, person.getPersonType()));
                         }
                     }
                 });
 
-                if(gamePersons.size() > 0) {
+                if (gamePersons.size() > 0) {
                     startRaceBtn.setDisable(false);
                 }
                 event.setDropCompleted(true);
@@ -304,9 +300,19 @@ public class Main implements Initializable {
             }
         });
 
-        tblGameParticipants.getColumns().addAll(nameColumn, typeColumn);
+        tblGameParticipants.getColumns().addAll(nameColumn, typeColumn, predictedWinner);
         tblGameParticipants.setItems(gamePersons);
+        tblGameParticipants.setEditable(true);
 
+    }
+
+    private void checkPredictedErr() {
+        gamePersons.forEach(competitor -> {
+            if(competitor.getPersonType() == DATA.PERSON_TYPE.Referee) {
+                competitor.setPredictedWinner(false);
+            }
+
+        });
     }
 
     private void gameNotif(String s) {
@@ -595,6 +601,56 @@ public class Main implements Initializable {
 
         public Integer getAthletePoints() {
             return athletePoints;
+        }
+    }
+
+    public class Competitor {
+        private String name;
+        private UUID uuid;
+        private BooleanProperty predictedWinner = new SimpleBooleanProperty();
+        private DATA.PERSON_TYPE personType;
+
+        public Competitor(String name, UUID uuid, boolean predictedWinner, DATA.PERSON_TYPE personType) {
+            this.name = name;
+            this.uuid = uuid;
+            this.predictedWinner.set(predictedWinner);
+            this.personType = personType;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public UUID getUuid() {
+            return uuid;
+        }
+
+        public void setUuid(UUID uuid) {
+            this.uuid = uuid;
+        }
+
+        public boolean isPredictedWinner() {
+            return predictedWinner.get();
+        }
+
+        public BooleanProperty predictedWinnerProperty() {
+            return predictedWinner;
+        }
+
+        public void setPredictedWinner(boolean predictedWinner) {
+            this.predictedWinner.set(predictedWinner);
+        }
+
+        public DATA.PERSON_TYPE getPersonType() {
+            return personType;
+        }
+
+        public void setPersonType(DATA.PERSON_TYPE personType) {
+            this.personType = personType;
         }
     }
 }
