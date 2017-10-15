@@ -23,7 +23,7 @@ import java.util.UUID;
  */
 public abstract class Athlete extends Person implements Comparable<Athlete> {
 
-    private int points;
+    private Integer points;
 
     protected Athlete(String name, int age, DATA.STATE fromState, Element element, DATA.PERSON_TYPE personType, UUID... uuids) {
         super(name, age, fromState, element, personType, uuids);
@@ -38,7 +38,7 @@ public abstract class Athlete extends Person implements Comparable<Athlete> {
      */
     public abstract int compete(Game game);
 
-    public int getPoints() {
+    public Integer getPoints() {
         return points;
     }
 

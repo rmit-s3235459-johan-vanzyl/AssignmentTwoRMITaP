@@ -20,9 +20,10 @@ public final class SprintGame implements Game {
     private ArrayList<Person> participants;
     private Map<Athlete, Integer> athleteTimes;
     private String uniqueID;
-    private static int count = 1;
+    private static Integer count = 1;
     private boolean haveIbeenRan;
     private Element element;
+    private static final DATA.GAMETYPE gametype = DATA.GAMETYPE.Sprinting;
 
     public SprintGame(Element element) {
         this.element = element;
@@ -84,4 +85,12 @@ public final class SprintGame implements Game {
         element.appendChild(person);
     }
 
+    public DATA.GAMETYPE getGametype() {
+        return gametype;
+    }
+
+    @Override
+    public Integer getCount() {
+        return count - 2;
+    }
 }

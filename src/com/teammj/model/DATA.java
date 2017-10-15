@@ -72,7 +72,7 @@ public interface DATA {
 
     }
 
-    enum GAMETYPE {SWIMMING, SPRINTING, CYCLING}
+    enum GAMETYPE {Swimming, Sprinting, Cycling}
 
     String[] athleteNames = {"Freddy Yeager", "Cathy Blackford", "Melisa Oros", "Elana Brannon", "Beryl Mojica",
             "Marquita Helms", "Kyle Cremer", "Jade Strachan", "Faviola Carmon", "Carey Lieberman",

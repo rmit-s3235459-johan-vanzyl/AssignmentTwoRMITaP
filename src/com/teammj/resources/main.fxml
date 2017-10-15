@@ -51,17 +51,24 @@
                 </ToolBar>
             </top>
             <left>
-                <VBox>
-                    <Label styleClass="subhead" style="-fx-padding: 0 0 0 5">
+                <VBox styleClass="border-property-left" style="-fx-padding: 0 5px 0 0">
+                    <Label styleClass="subhead" alignment="CENTER">
                         Persons
                     </Label>
-                    <TableView fx:id="tblViewPersons" prefHeight="${root.height - 300}">
-                    </TableView>
+                    <TableView fx:id="tblViewPersons" prefHeight="${root.height - 300}" editable="true"/>
                 </VBox>
             </left>
             <center>
                 <AnchorPane fx:id="centerPane">
-
+                    <VBox>
+                        <Label styleClass="subhead" prefWidth="${centerPane.width}" alignment="CENTER">
+                            Games
+                        </Label>
+                        <HBox styleClass="border-property-center">
+                            <TableView fx:id="tblViewGames" prefHeight="${root.height - 300}"/>
+                            <TableView fx:id="tblViewGame" prefHeight="${root.height - 300}"/>
+                        </HBox>
+                    </VBox>
                 </AnchorPane>
             </center>
             <bottom>

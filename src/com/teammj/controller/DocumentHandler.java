@@ -1,7 +1,6 @@
 package com.teammj.controller;
 
 import com.sun.istack.internal.Nullable;
-import com.teammj.Ozlympic;
 import com.teammj.model.DATA;
 import com.teammj.model.games.CyclingGame;
 import com.teammj.model.games.Game;
@@ -33,7 +32,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class DocumentHandler {
+public final class DocumentHandler {
 
     public static void setAttr(final String type, final String value, final Element source) {
         Attr attr = source.getAttributeNode(type);
@@ -347,13 +346,13 @@ public class DocumentHandler {
                                   ObservableList<Official> officials) {
         Game game = null;
         switch (gametype) {
-            case CYCLING:
+            case Cycling:
                 game = new CyclingGame(element);
                 break;
-            case SWIMMING:
+            case Swimming:
                 game = new SwimmingGame(element);
                 break;
-            case SPRINTING:
+            case Sprinting:
                 game = new SprintGame(element);
                 break;
         }
@@ -382,19 +381,19 @@ public class DocumentHandler {
         Element root = (Element) document.getElementsByTagName(DATA.SWIMMING).item(0);
         NodeList nodeList = root.getElementsByTagName(DATA.GAME);
         for (int i = 0; i < nodeList.getLength(); i++) {
-            games.add(parseGame((Element) nodeList.item(i), DATA.GAMETYPE.SWIMMING, athletes, officials));
+            games.add(parseGame((Element) nodeList.item(i), DATA.GAMETYPE.Swimming, athletes, officials));
         }
         // Running Games
         root = (Element) document.getElementsByTagName(DATA.SPINTING).item(0);
         nodeList = root.getElementsByTagName(DATA.GAME);
         for (int i = 0; i < nodeList.getLength(); i++) {
-            games.add(parseGame((Element) nodeList.item(i), DATA.GAMETYPE.SPRINTING, athletes, officials));
+            games.add(parseGame((Element) nodeList.item(i), DATA.GAMETYPE.Sprinting, athletes, officials));
         }
         // Cycling Games
         root = (Element) document.getElementsByTagName(DATA.CYCLING).item(0);
         nodeList = root.getElementsByTagName(DATA.GAME);
         for (int i = 0; i < nodeList.getLength(); i++) {
-            games.add(parseGame((Element) nodeList.item(i), DATA.GAMETYPE.CYCLING, athletes, officials));
+            games.add(parseGame((Element) nodeList.item(i), DATA.GAMETYPE.Cycling, athletes, officials));
         }
 
         return games;

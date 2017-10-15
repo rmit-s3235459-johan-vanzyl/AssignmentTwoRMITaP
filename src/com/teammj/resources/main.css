@@ -73,13 +73,34 @@
     -fx-opacity: 0.25;
     -fx-cursor: hand;
 }
+
+.border-property-left {
+    -fx-border-color: divider-color;
+    -fx-border-width: 0 2px 0 0;
+}
+
+.border-property-center {
+    -fx-border-color: divider-color;
+    -fx-border-width: 2px 2px 0 0;
+}
+
+.table-view {
+    -fx-focus-color: transparent;
+    -fx-border-width: 0;
+}
+
+.table-columns {
+    -fx-border-color: divider-color;
+    -fx-border-width: 1px;
+}
+
 /*****************************
 ******************************
 */
 
-/****
+/************
     Fonts
- */
+ ************/
 
 .title {
     -fx-font-family: "Roboto Medium";
@@ -91,3 +112,7 @@
     -fx-font-size: 20.0;
     -fx-font-weight: BOLD;
 }
+
+/*************************
+**************************
+ */

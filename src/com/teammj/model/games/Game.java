@@ -1,5 +1,6 @@
 package com.teammj.model.games;
 
+import com.teammj.model.DATA;
 import com.teammj.model.persons.base.Athlete;
 import com.teammj.model.persons.base.Person;
 import org.w3c.dom.Element;
@@ -27,4 +28,6 @@ public interface Game  {
     void setParticipants(ArrayList<Person> participants);
     void setUniqueID(String uniqueID, boolean loading);
     void addParticipant(Person participant);
+    public DATA.GAMETYPE getGametype();
+    public Integer getCount();
 }
