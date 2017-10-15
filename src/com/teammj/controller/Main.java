@@ -6,13 +6,17 @@ import com.teammj.model.persons.Cyclist;
 import com.teammj.model.persons.Swimmer;
 import com.teammj.model.persons.base.Athlete;
 import com.teammj.model.persons.base.Official;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
+import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -20,35 +24,49 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 public class Main implements Initializable {
-    public AnchorPane root;
-    public Button generateTxtFile;
-    public BorderPane topBorderPane;
 
-    private Document document;
-    private ArrayList<Athlete> athletes;
-    ArrayDeque<Official> officials;
+    private static Document document;
+    private static final ArrayList<Athlete> athletes = new ArrayList<>();
+    private static final ArrayDeque<Official> officials = new ArrayDeque<>();
+    private static final ArrayDeque<Game> games = new ArrayDeque<>();
+    public AnchorPane root;
+    public VBox loadVbox;
 
     public void generateSaveFile() {
-        athletes = new ArrayList<>();
-        officials = new ArrayDeque<>();
         document = DocumentHandler.generateSaveFile(Ozlympic.getCurrentStage(), athletes, officials);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //generateTxtFile.setText("Generate\n  save file");
+        loadVbox.setOnMouseClicked(event -> {
+            loadFromFile();
+        });
     }
 
-    public void loadFromFile() {
-        ArrayList<Athlete> athletes = new ArrayList<>();
-        ArrayDeque<Official> officials = new ArrayDeque<>();
-        ArrayDeque<Game> games = new ArrayDeque<>();
-        document = DocumentHandler.loadFromSavedFile(
-                Ozlympic.getCurrentStage(),
-                athletes,
-                officials,
-                games
-        );
+    public static void loadFromFile(String... args) {
+
+        if(args.length > 0) {
+            File file = new File(args[0]);
+            System.out.println(file);
+            if(!file.exists()) {
+                System.err.println("Specified load file does not exist");
+                System.exit(1);
+            }
+            document = DocumentHandler.loadFromSavedFile(
+                    Ozlympic.getCurrentStage(),
+                    athletes,
+                    officials,
+                    games,
+                    file
+            );
+        } else {
+            document = DocumentHandler.loadFromSavedFile(
+                    Ozlympic.getCurrentStage(),
+                    athletes,
+                    officials,
+                    games
+            );
+        }
 
         for (Athlete a : athletes) {
             System.out.println(a.getUniqueID().toString());

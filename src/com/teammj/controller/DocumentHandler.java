@@ -1,6 +1,7 @@
 package com.teammj.controller;
 
 import com.sun.istack.internal.Nullable;
+import com.teammj.Ozlympic;
 import com.teammj.model.DATA;
 import com.teammj.model.games.CyclingGame;
 import com.teammj.model.games.Game;
@@ -212,6 +213,12 @@ public class DocumentHandler {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Select Ozlympic XML file to load");
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
+
+            File loadDirectory = new File(System.getProperty("user.dir") + "\\out\\production\\AssignmentTwoRMITaP");
+            if(loadDirectory.exists() ) {
+                fileChooser.setInitialDirectory(loadDirectory);
+            }
+
             fileToLoad = fileChooser.showOpenDialog(window);
             if (fileToLoad == null) return null;
         }

@@ -14,7 +14,7 @@
             <top>
                 <ToolBar prefWidth="${root.width}">
                     <leftItems>
-                        <VBox>
+                        <VBox fx:id="loadVbox">
                             <ImageView>
                                 <image>
                                     <Image url="icons/open-folder.png" />
@@ -22,6 +22,16 @@
                             </ImageView>
                             <Label style="-fx-padding: 0 0 0 5">
                                 Load
+                            </Label>
+                        </VBox>
+                        <VBox>
+                            <ImageView>
+                                <image>
+                                    <Image url="icons/save-file-option.png" />
+                                </image>
+                            </ImageView>
+                            <Label style="-fx-padding: 0 0 0 8">
+                                Save
                             </Label>
                         </VBox>
                     </leftItems>

@@ -1,5 +1,6 @@
 package com.teammj;
 
+import com.teammj.controller.Main;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -30,6 +31,9 @@ public class Ozlympic extends Application {
 
     // Main entry point
     public static void main(String[] args) {
+        if(args.length > 0) {
+            Main.loadFromFile(args[0]);
+        }
         launch(args);
     }
 
@@ -44,6 +48,7 @@ public class Ozlympic extends Application {
             Scene scene = new Scene (root, 1024, 720);//720p?
             final ObservableList<String> styleSheets = scene.getStylesheets();
             styleSheets.add(Ozlympic.class.getResource("/main.css").toExternalForm());
+            currentStage.setTitle("Ozlympics");
             currentStage.setScene(scene);
             currentStage.show();
         } catch (IOException e) {

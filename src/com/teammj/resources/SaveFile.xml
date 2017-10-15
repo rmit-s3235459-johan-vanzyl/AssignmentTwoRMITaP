@@ -29,7 +29,7 @@
                 <cyclist UUID="1239e98e-7366-4047-aec7-802b065f1c81" age="47" name="Michaela Keniston" points="10" state="VIC"/>
                 <cyclist UUID="a894378b-6521-4d95-8288-57f2df899d89" age="40" name="Yasuko Rothfuss" points="10" state="QLD"/>
             </cyclists>
-            <superAthletes
+            <superAthletes>
                 <superAthlete UUID="f71a95c7-2f8d-40a5-b074-fea953a6c2b7" age="36" name="Elana Brannon" points="10" state="VIC"/>
                 <superAthlete UUID="34db2801-c3c7-4c92-b284-0c0b36c750d9" age="19" name="Kyle Cremer" points="10" state="SA"/>
                 <superAthlete UUID="15cb3571-51c6-4394-a79d-76a73dcbfb22" age="41" name="Jade Strachan" points="10" state="NSW"/>
@@ -37,7 +37,7 @@
                 <superAthlete UUID="6bab9bad-6a5a-4b7e-a68f-e4b9751e0d7e" age="41" name="Carey Lieberman" points="10" state="VIC"/>
                 <superAthlete UUID="9435d575-48b3-4961-87cc-636752a6e2a3" age="34" name="Ramonita Cali" points="10" state="TAS"/>
                 <superAthlete UUID="ae0c51c9-5ead-4a23-939e-d25607a567c6" age="20" name="Susana Cox" points="10"  state="WA"/>
-                <superAthlete UUID="cb2f5f4c-3813-417d-b7c7-e62d4141cb9b" age="19" name="Beckie Carlsen" points="10"state="QLD"/>
+                <superAthlete UUID="cb2f5f4c-3813-417d-b7c7-e62d4141cb9b" age="19" name="Beckie Carlsen" points="10" state="QLD"/>
                 <superAthlete UUID="5d5c3ad5-2db8-4e3a-946a-22afa4516425" age="47" name="Serafina Colgan" points="10" state="QLD"/>
             </superAthletes>
         </athletes>
