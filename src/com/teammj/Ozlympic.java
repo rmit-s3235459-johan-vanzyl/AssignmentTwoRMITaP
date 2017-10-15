@@ -2,11 +2,14 @@ package com.teammj;
 
 import com.teammj.controller.Main;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -27,6 +30,11 @@ public class Ozlympic extends Application {
     public void start(Stage primaryStage) throws Exception {
         currentStage = primaryStage;
         createStage();
+        handleQuitCatch();
+    }
+
+    private void handleQuitCatch() {
+        currentStage.setOnCloseRequest(event -> Main.escape());
     }
 
     // Main entry point

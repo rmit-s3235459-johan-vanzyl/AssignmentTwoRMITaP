@@ -168,7 +168,7 @@ public class DocumentHandler {
         return document;
     }
 
-    static void saveGame(Document document, @Nullable final Window window, File ...files) {
+    public static void saveGame(Document document, @Nullable final Window window, File ...files) {
         File file;
         if(files.length > 0) {
             file = files[0];

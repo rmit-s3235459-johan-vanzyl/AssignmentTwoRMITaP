@@ -6,6 +6,7 @@ import com.teammj.model.persons.Cyclist;
 import com.teammj.model.persons.Swimmer;
 import com.teammj.model.persons.base.Athlete;
 import com.teammj.model.persons.base.Official;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -38,9 +39,7 @@ public class Main implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadVbox.setOnMouseClicked(event -> {
-            loadFromFile();
-        });
+        loadVbox.setOnMouseClicked(event -> loadFromFile());
     }
 
     public static void loadFromFile(String... args) {
@@ -87,9 +86,20 @@ public class Main implements Initializable {
         }
     }
 
-    public void saveToFile() {
-        if(document == null) return; //TODO: prompt window
-        DocumentHandler.saveGame(document, Ozlympic.getCurrentStage());
+
+    public void exit() {
+        escape();
     }
 
+    public static void escape() {
+        if(document != null) {
+            DocumentHandler.saveGame(document, null, new File("SaveGame.xml"));
+        }
+        Platform.exit();
+        System.exit(0);
+    }
+
+    public static Document getDocument() {
+        return document;
+    }
 }

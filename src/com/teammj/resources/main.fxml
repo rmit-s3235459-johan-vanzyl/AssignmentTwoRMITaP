@@ -36,9 +36,16 @@
                         </VBox>
                     </leftItems>
                     <rightItems>
-                        <Label>
-                            Ozlympics
-                        </Label>
+                        <VBox onMouseClicked="#exit">
+                            <ImageView>
+                                <image>
+                                    <Image url="icons/exit.png" />
+                                </image>
+                            </ImageView>
+                            <Label style="-fx-padding: 0 0 0 8">
+                                Exit
+                            </Label>
+                        </VBox>
                     </rightItems>
                 </ToolBar>
             </top>
