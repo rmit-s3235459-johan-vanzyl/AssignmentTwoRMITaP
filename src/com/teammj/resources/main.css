@@ -63,13 +63,24 @@
 
 .border-property-left {
     -fx-border-color: divider-color;
-    -fx-border-width: 0 2px 0 0;
+    -fx-border-width: 0 2px 2px 0;
     -fx-padding: 3px 0 0 15px;
 }
 
 .border-property-center {
+    -fx-padding: 3px 0 0 15px;
+}
+
+.border-property-right {
     -fx-border-color: divider-color;
-    -fx-border-width: 2px 2px 0 0;
+    -fx-border-width: 0 0 2px 2px;
+    -fx-padding: 3px 0 0 15px;
+}
+
+.border-property-bottom {
+    -fx-border-color: divider-color;
+    -fx-border-width: 2px 0 0 0;
+    -fx-padding: 5px 0 15px 0;
 }
 
 .table-view {
@@ -82,7 +93,7 @@
     -fx-border-width: 1px;
 }
 
-#addAfeedBack {
+.warning {
     -fx-text-fill: red;
     -fx-font-family: "Roboto Bold";
     -fx-font-weight: BOLD;
@@ -134,6 +145,7 @@
 .title {
     -fx-font-family: "Roboto Medium";
     -fx-font-size: 30.0;
+    -fx-font-weight: BOLD;
 }
 
 .subhead {

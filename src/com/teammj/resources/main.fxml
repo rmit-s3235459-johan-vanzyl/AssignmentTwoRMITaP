@@ -15,6 +15,7 @@
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.Pane?>
 <AnchorPane fx:id="root" minWidth="1280" minHeight="800" xmlns="http://javafx.com/javafx/8.0.121"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teammj.controller.Main">
     <children>
@@ -26,7 +27,7 @@
                         <VBox fx:id="loadVbox">
                             <ImageView>
                                 <image>
-                                    <Image url="icons/open-folder.png" />
+                                    <Image url="icons/open-folder.png"/>
                                 </image>
                             </ImageView>
                             <Label style="-fx-padding: 0 0 0 5">
@@ -36,7 +37,7 @@
                         <VBox onMouseClicked="#saveFile">
                             <ImageView>
                                 <image>
-                                    <Image url="icons/save-file-option.png" />
+                                    <Image url="icons/save-file-option.png"/>
                                 </image>
                             </ImageView>
                             <Label style="-fx-padding: 0 0 0 8">
@@ -48,7 +49,7 @@
                         <VBox onMouseClicked="#generateSaveFile">
                             <ImageView>
                                 <image>
-                                    <Image url="icons/settings-gears.png" />
+                                    <Image url="icons/settings-gears.png"/>
                                 </image>
                             </ImageView>
                             <Label>
@@ -58,7 +59,7 @@
                         <VBox onMouseClicked="#exit">
                             <ImageView>
                                 <image>
-                                    <Image url="icons/exit.png" />
+                                    <Image url="icons/exit.png"/>
                                 </image>
                             </ImageView>
                             <Label style="-fx-padding: 0 0 0 8">
@@ -74,7 +75,7 @@
                         Persons
                     </Label>
                     <HBox>
-                        <TableView fx:id="tblViewPersons" prefHeight="${root.height - 300}" maxWidth="330"/>
+                        <TableView fx:id="tblViewPersons" prefHeight="${root.height - 350}" maxWidth="330"/>
                         <VBox styleClass="border-property-inner-left">
                             <Label styleClass="header">
                                 Add Athlete
@@ -92,17 +93,17 @@
                             <ComboBox fx:id="cmbAState" promptText="State">
                                 <items>
                                     <FXCollections fx:factory="observableArrayList">
-                                        <String fx:value="NSW" />
-                                        <String fx:value="QLD" />
-                                        <String fx:value="SA" />
-                                        <String fx:value="TAS" />
-                                        <String fx:value="VIC" />
-                                        <String fx:value="WA" />
+                                        <String fx:value="NSW"/>
+                                        <String fx:value="QLD"/>
+                                        <String fx:value="SA"/>
+                                        <String fx:value="TAS"/>
+                                        <String fx:value="VIC"/>
+                                        <String fx:value="WA"/>
                                     </FXCollections>
                                 </items>
                             </ComboBox>
                             <Button text="Add Athlete" fx:id="addAthlete" onMouseClicked="#addNewAthlete"/>
-                            <Label fx:id="addAfeedBack"/>
+                            <Label fx:id="addAfeedBack" styleClass="warning"/>
                             <Label styleClass="header">
                                 Add Referee
                             </Label>
@@ -111,48 +112,74 @@
                             <ComboBox fx:id="cmbRState" promptText="State">
                                 <items>
                                     <FXCollections fx:factory="observableArrayList">
-                                        <String fx:value="NSW" />
-                                        <String fx:value="QLD" />
-                                        <String fx:value="SA" />
-                                        <String fx:value="TAS" />
-                                        <String fx:value="VIC" />
-                                        <String fx:value="WA" />
+                                        <String fx:value="NSW"/>
+                                        <String fx:value="QLD"/>
+                                        <String fx:value="SA"/>
+                                        <String fx:value="TAS"/>
+                                        <String fx:value="VIC"/>
+                                        <String fx:value="WA"/>
                                     </FXCollections>
                                 </items>
                             </ComboBox>
                             <Button text="Add Referee" fx:id="addReferee" onMouseClicked="#addNewReferee"/>
-                            <Label fx:id="addRfeedBack"/>
+                            <Label fx:id="addRfeedBack" styleClass="warning"/>
                         </VBox>
                     </HBox>
                 </VBox>
             </left>
             <center>
-                <AnchorPane fx:id="centerPane">
+                <AnchorPane fx:id="centerPane" styleClass="border-property-center">
                     <VBox>
-                        <Label styleClass="subhead" prefWidth="${centerPane.width}" alignment="CENTER">
+                        <Label styleClass="subhead" prefWidth="${centerPane.width - 15}" alignment="CENTER">
                             Past Games
                         </Label>
                         <HBox styleClass="border-property-center">
-                            <TableView fx:id="tblviewgames" prefHeight="${root.height - 300}" prefWidth="170"/>
-                            <TableView fx:id="tblViewGame" prefHeight="${root.height - 300}" />
+                            <TableView fx:id="tblviewgames" prefHeight="${root.height - 350}" prefWidth="170"/>
+                            <TableView fx:id="tblViewGame" prefHeight="${root.height - 350}"/>
                         </HBox>
                     </VBox>
                 </AnchorPane>
             </center>
             <right>
-                <VBox>
+                <VBox styleClass="border-property-right">
                     <Label styleClass="subhead" alignment="CENTER">
                         Athlete's Rank
                     </Label>
-                    <TableView fx:id="tblViewAthletesRank" prefHeight="${root.height - 300}" />
+                    <TableView fx:id="tblViewAthletesRank" prefHeight="${root.height - 350}"/>
                 </VBox>
             </right>
             <bottom>
-                <VBox>
-                    <HBox>
+                <HBox styleClass="border-property-bottom" prefHeight="215">
+                    <VBox>
+                        <HBox>
+                            <Label styleClass="header" style="-fx-padding: 0 15px 0 0">
+                                New Game
+                            </Label>
+                            <ComboBox fx:id="cmbGType" promptText="Game Type">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="Swimming"/>
+                                        <String fx:value="Sprinting"/>
+                                        <String fx:value="Cycling"/>
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                            <Button onMouseClicked="#clearPlayerTbl">Clear</Button>
+                        </HBox>
 
-                    </HBox>
-                </VBox>
+                        <TableView fx:id="tblGameParticipants"/>
+                        <Label fx:id="addPfeedback">
+                            Drag Persons in Here!
+                        </Label>
+                    </VBox>
+                    <VBox style="-fx-padding: 0 0 0 15px">
+                        <Pane style="-fx-padding: 15px 0 0 0">
+                            <Button styleClass="title" prefHeight="80" disable="true" fx:id="startRaceBtn">
+                                START RACE!!!
+                            </Button>
+                        </Pane>
+                    </VBox>
+                </HBox>
             </bottom>
         </BorderPane>
     </children>

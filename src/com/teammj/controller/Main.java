@@ -12,17 +12,16 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -30,6 +29,7 @@ import javax.swing.plaf.nimbus.State;
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class Main implements Initializable {
@@ -38,6 +38,7 @@ public class Main implements Initializable {
     private static final ObservableList<Athlete> athletes = FXCollections.observableArrayList();
     private static final ObservableList<Official> officials = FXCollections.observableArrayList();
     private static final ObservableList<Person> persons = FXCollections.observableArrayList();
+    private static final ObservableList<Person> gamePersons = FXCollections.observableArrayList();
     private static final ObservableList<Game> games = FXCollections.observableArrayList();
     private static final ObservableList<AthleteMap> athleteGameMap = FXCollections.observableArrayList();
 
@@ -59,6 +60,10 @@ public class Main implements Initializable {
     public ComboBox cmbRState;
     public Label addRfeedBack;
     public Button addReferee;
+    public TableView<Person> tblGameParticipants;
+    public Label addPfeedback;
+    public ComboBox cmbGType;
+    public Button startRaceBtn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -66,6 +71,7 @@ public class Main implements Initializable {
         setupPersonsTable();
         setupGamesTable();
         setupGameTable();
+        setupGamePersonsTable();
         setupAthletesRank();
         setupValidators();
 
@@ -178,6 +184,145 @@ public class Main implements Initializable {
         });
     }
 
+    private void setupGamePersonsTable() {
+        TableColumn<Person, String> nameColumn = new TableColumn<>("Name");
+        TableColumn<Person, DATA.PERSON_TYPE> typeColumn = new TableColumn<>("Type");
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        typeColumn.setCellValueFactory(new PropertyValueFactory<>("personType"));
+
+        nameColumn.setPrefWidth(140.0);
+
+        tblGameParticipants.setOnDragOver(event -> {
+            /* data is dragged over the target */
+            /* accept it only if it is  not dragged from the same node
+             * and if it has a string data */
+            if (event.getGestureSource() != tblGameParticipants &&
+                    event.getDragboard().hasString()) {
+                /* allow for both copying and moving, whatever user chooses */
+                event.acceptTransferModes(TransferMode.COPY);
+            }
+
+            event.consume();
+        });
+
+        tblGameParticipants.setOnDragEntered(event -> {
+            /* the drag-and-drop gesture entered the target */
+            /* show to the user that it is an actual gesture target */
+            if (event.getGestureSource() != tblGameParticipants &&
+                    event.getDragboard().hasString()) {
+                tblGameParticipants.setStyle("-fx-text-fill: PINK");
+            }
+            event.consume();
+        });
+
+        tblGameParticipants.setOnDragExited(event -> {
+            /* mouse moved away, remove the graphical cues */
+            tblGameParticipants.setStyle("-fx-text-fill: BLACK");
+
+            event.consume();
+        });
+
+        tblGameParticipants.setOnDragDropped(event -> {
+            String sGameType = (String) cmbGType.getValue();
+            if(sGameType == null) {
+                addPfeedback.setText("Please select game type first!");
+                addPfeedback.getStyleClass().add("warning");
+                gameNotif("Drag Persons in Here!");
+                return;
+            }
+
+            Dragboard dragboard = event.getDragboard();
+            try {
+                String possibleUUID = dragboard.getString();
+
+                final Integer[] refCount = {0};
+                gamePersons.forEach(person -> {
+                    if (person instanceof Referee) {
+                        refCount[0]++;
+                    }
+                });
+                persons.forEach(person -> {
+                    if (Objects.equals(person.getUniqueID().toString(), possibleUUID)) {
+                        final boolean[] pleaseReturn = {false};
+                        // Check for duplicates
+                        gamePersons.forEach(person2 -> {
+                            if (Objects.equals(person2.getUniqueID().toString(), possibleUUID)) {
+                                addPfeedback.setText("Cannot add the same person twice!");
+                                addPfeedback.getStyleClass().add("warning");
+                                gameNotif("Drag Persons in Here!");
+                                pleaseReturn[0] = true;
+                            }
+                        });
+                        if(pleaseReturn[0]) return;
+                        if(!(person instanceof SuperAthlete) && !(person instanceof Referee)) {
+                            switch (sGameType) {
+                                case "Swimming":
+                                    if(!(person instanceof Swimmer)) {
+                                        pleaseReturn[0] = true;
+                                    }
+                                    break;
+                                case "Sprinting":
+                                    if(!(person instanceof Sprinter)) {
+                                        pleaseReturn[0] = true;
+                                    }
+                                    break;
+                                case "Cycling":
+                                    if(!(person instanceof Cyclist)) {
+                                        pleaseReturn[0] = true;
+                                    }
+                                    break;
+                            }
+                        }
+                        if(pleaseReturn[0]) {
+                            addPfeedback.setText("Please add appropriate athlete to game!");
+                            addPfeedback.getStyleClass().add("warning");
+                            gameNotif("Drag Persons in Here!");
+                            return;
+                        }
+                        if (person instanceof Referee) {
+                            if (refCount[0] == 0) {
+                                gamePersons.add(person);
+                            } else {
+                                addPfeedback.setText("Cannot add more than 2 refs!");
+                                addPfeedback.getStyleClass().add("warning");
+                                gameNotif("Drag Persons in Here!");
+                            }
+                        } else {
+                            gamePersons.add(person);
+                        }
+                    }
+                });
+
+                if(gamePersons.size() > 0) {
+                    startRaceBtn.setDisable(false);
+                }
+                event.setDropCompleted(true);
+                event.consume();
+            } catch (Exception e) {
+                e.printStackTrace();
+                event.setDropCompleted(false);
+            }
+        });
+
+        tblGameParticipants.getColumns().addAll(nameColumn, typeColumn);
+        tblGameParticipants.setItems(gamePersons);
+
+    }
+
+    private void gameNotif(String s) {
+        new Thread(() -> {
+            try {
+                Thread.sleep(5000);
+                Platform.runLater(() -> {
+                    addPfeedback.setText(s);
+                    addPfeedback.getStyleClass().clear();
+                });
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }).start();
+    }
+
     private void fillInGameMap(Game selectedItem) {
         athleteGameMap.clear();
         tblViewGame.getItems().clear();
@@ -208,7 +353,6 @@ public class Main implements Initializable {
 
             tableRow.setOnDragDetected(event -> {
                 if (!tableRow.isEmpty()) {
-                    Integer index = tableRow.getIndex();
                     Dragboard dragboard = tableRow.startDragAndDrop(TransferMode.COPY);
                     dragboard.setDragView(tableRow.snapshot(null, null));
                     ClipboardContent clipboardContent = new ClipboardContent();
@@ -288,18 +432,18 @@ public class Main implements Initializable {
 
     public void addNewAthlete() {
         try {
-            if(txtFieldAAge.getText().length() < 1) {
+            if (txtFieldAAge.getText().length() < 1) {
                 addAfeedBack.setText("Please input age.");
                 return;
             }
-            if(txtFieldAName.getText().length() < 3) {
+            if (txtFieldAName.getText().length() < 3) {
                 addAfeedBack.setText("Please enter name.");
                 return;
             }
 
             String typeToAdd = ((RadioButton) toggleGroup.getSelectedToggle()).getText();
             String sState = (String) cmbAState.getValue();
-            if(sState == null) {
+            if (sState == null) {
                 addAfeedBack.setText("Please select state");
                 return;
             }
@@ -361,7 +505,7 @@ public class Main implements Initializable {
                     return;
             }
 
-            if(athlete != null) {
+            if (athlete != null) {
                 persons.add(athlete);
                 athletes.add(athlete);
             }
@@ -372,17 +516,17 @@ public class Main implements Initializable {
 
     public void addNewReferee() {
         try {
-            if(txtFieldRAge.getText().length() < 1) {
+            if (txtFieldRAge.getText().length() < 1) {
                 addRfeedBack.setText("Please input age.");
                 return;
             }
-            if(txtFieldRName.getText().length() < 3) {
+            if (txtFieldRName.getText().length() < 3) {
                 addRfeedBack.setText("Please enter name.");
                 return;
             }
 
             String sState = (String) cmbRState.getValue();
-            if(sState == null) {
+            if (sState == null) {
                 addRfeedBack.setText("Please select state");
                 return;
             }
@@ -417,12 +561,17 @@ public class Main implements Initializable {
             addRfeedBack.setText("");
 
             Element element = DocumentHandler.addReferee(document);
-            if(element == null) return;
+            if (element == null) return;
             Referee referee = new Referee(name, age, stateType, element);
             persons.add(referee);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void clearPlayerTbl() {
+        gamePersons.clear();
+        startRaceBtn.setDisable(true);
     }
 
     public class AthleteMap {
