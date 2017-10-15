@@ -529,4 +529,40 @@ public final class DocumentHandler {
             return null;
         }
     }
+
+    static Element addSwimmingGame(final Document document) {
+        try {
+            Element root = (Element) document.getElementsByTagName(DATA.SWIMMING).item(0);
+            Element swimmingGame = document.createElement(DATA.GAME);
+            root.appendChild(swimmingGame);
+            return swimmingGame;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    static Element addSprintingGame(final Document document) {
+        try {
+            Element root = (Element) document.getElementsByTagName(DATA.SPINTING).item(0);
+            Element sprintinggame = document.createElement(DATA.GAME);
+            root.appendChild(sprintinggame);
+            return sprintinggame;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    static Element addCyclingGame(final Document document) {
+        try {
+            Element root = (Element) document.getElementsByTagName(DATA.CYCLING).item(0);
+            Element cyclinggame = document.createElement(DATA.GAME);
+            root.appendChild(cyclinggame);
+            return cyclinggame;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

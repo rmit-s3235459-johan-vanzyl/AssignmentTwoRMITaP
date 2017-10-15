@@ -2,7 +2,10 @@ package com.teammj.controller;
 
 import com.teammj.Ozlympic;
 import com.teammj.model.DATA;
+import com.teammj.model.games.CyclingGame;
 import com.teammj.model.games.Game;
+import com.teammj.model.games.SprintGame;
+import com.teammj.model.games.SwimmingGame;
 import com.teammj.model.persons.*;
 import com.teammj.model.persons.base.Athlete;
 import com.teammj.model.persons.base.Official;
@@ -32,10 +35,7 @@ import org.w3c.dom.Element;
 import javax.swing.plaf.nimbus.State;
 import java.io.File;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.ResourceBundle;
-import java.util.UUID;
+import java.util.*;
 
 public class Main implements Initializable {
 
@@ -69,6 +69,7 @@ public class Main implements Initializable {
     public Label addPfeedback;
     public ComboBox cmbGType;
     public Button startRaceBtn;
+    public Label didIwin;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -200,9 +201,7 @@ public class Main implements Initializable {
             @Override
             public void updateItem(Boolean item, boolean empty) {
                 super.updateItem(item, empty);
-                if(item != null) {
-                    if(item) checkPredictedErr();
-                }
+                Platform.runLater(() -> checkPredictedErr());
             }
         });
 
@@ -277,21 +276,18 @@ public class Main implements Initializable {
                         }
                         if (person.getPersonType() == DATA.PERSON_TYPE.Referee) {
                             if (refCount[0] == 0) {
-                                gamePersons.add(new Competitor(person.getName(), person.getUniqueID(), false, person.getPersonType()));
+                                gamePersons.add(new Competitor(person.getName(), person.getUniqueID(), false, person.getPersonType(), person));
                             } else {
                                 addPfeedback.setText("Cannot add more than 2 refs!");
                                 addPfeedback.getStyleClass().add("warning");
                                 gameNotif("Drag Persons in Here!");
                             }
                         } else {
-                            gamePersons.add(new Competitor(person.getName(), person.getUniqueID(), false, person.getPersonType()));
+                            gamePersons.add(new Competitor(person.getName(), person.getUniqueID(), false, person.getPersonType(), person));
                         }
                     }
                 });
 
-                if (gamePersons.size() > 0) {
-                    startRaceBtn.setDisable(false);
-                }
                 event.setDropCompleted(true);
                 event.consume();
             } catch (Exception e) {
@@ -304,15 +300,48 @@ public class Main implements Initializable {
         tblGameParticipants.setItems(gamePersons);
         tblGameParticipants.setEditable(true);
 
+        gamePersons.addListener((ListChangeListener<Competitor>) c -> {
+            while (c.next()) {
+                if (c.wasAdded()) {
+                    Platform.runLater(() -> checkGameCanStart());
+                }
+            }
+        });
+    }
+
+    private void checkGameCanStart() {
+        final Boolean[] refFound = {false, false};
+        final Integer[] count = {0};
+        gamePersons.forEach(competitor -> {
+            if (competitor.personType == DATA.PERSON_TYPE.Referee) {
+                refFound[0] = true;
+            } else {
+                if (competitor.isPredictedWinner()) {
+                    refFound[1] = true;
+                }
+                count[0]++;
+            }
+        });
+        if (count[0] >= 4 && count[0] <= 8 && refFound[0] && refFound[1]) {
+            startRaceBtn.setDisable(false);
+        } else {
+            startRaceBtn.setDisable(true);
+        }
     }
 
     private void checkPredictedErr() {
+        final Integer[] count = {0};
         gamePersons.forEach(competitor -> {
-            if(competitor.getPersonType() == DATA.PERSON_TYPE.Referee) {
+            if (competitor.getPersonType() == DATA.PERSON_TYPE.Referee) {
                 competitor.setPredictedWinner(false);
+            } else {
+                if (competitor.isPredictedWinner()) {
+                    if (count[0] > 0) competitor.setPredictedWinner(false);
+                    count[0]++;
+                }
             }
-
         });
+        checkGameCanStart();
     }
 
     private void gameNotif(String s) {
@@ -580,6 +609,53 @@ public class Main implements Initializable {
         startRaceBtn.setDisable(true);
     }
 
+    public void startRace() {// Let persons compete and place their times into a map
+        Game game;
+        final Athlete[] predictedWinner = new Athlete[1];
+        switch ((String) cmbGType.getValue()) {
+            case "Swimming":
+                game = new SwimmingGame(DocumentHandler.addSwimmingGame(document));
+                break;
+            case "Sprinting":
+                game = new SprintGame(DocumentHandler.addSprintingGame(document));
+                break;
+            case "Cycling":
+                game = new CyclingGame(DocumentHandler.addCyclingGame(document));
+                break;
+            default:
+                return;
+        }
+        Map<Athlete, Integer> athleteTimes = new HashMap<>(gamePersons.size() - 1);
+        Map<Athlete, Integer> finalAthleteTimes = athleteTimes;
+        gamePersons.forEach(competitor -> {
+            if(competitor.personType != DATA.PERSON_TYPE.Referee) {
+                Athlete athlete = (Athlete) competitor.getPerson();
+                int time = athlete.compete(game);
+                finalAthleteTimes.put(athlete, time);
+                if(competitor.isPredictedWinner()) predictedWinner[0] = (Athlete) competitor.getPerson();
+            }
+            game.addParticipant(competitor.getPerson());
+        });
+
+        athleteTimes = Utilities.sortMapByValue(finalAthleteTimes);
+
+        // Get the winner
+        Athlete winner = athleteTimes.keySet().iterator().next();
+        if (winner != null) {
+            if (predictedWinner[0].getUniqueID().equals(winner.getUniqueID())) {
+                System.out.println("Congratulations! You predicated correctly!\n");
+                didIwin.setText("CONGRATS YOU PREDICTED CORRECTLY!!");
+            } else {
+                didIwin.setText("Incorrectly guessed winner :(");
+                System.out.println("Incorrectly guessed winner :(\n");
+            }
+        }
+        game.setHaveIbeenRan(true, false);
+        game.setAthleteTimes(athleteTimes);
+        games.add(game);
+
+    }
+
     public class AthleteMap {
         private String athleteName;
         private Integer athleteTime;
@@ -609,12 +685,14 @@ public class Main implements Initializable {
         private UUID uuid;
         private BooleanProperty predictedWinner = new SimpleBooleanProperty();
         private DATA.PERSON_TYPE personType;
+        private Person person;
 
-        public Competitor(String name, UUID uuid, boolean predictedWinner, DATA.PERSON_TYPE personType) {
+        public Competitor(String name, UUID uuid, boolean predictedWinner, DATA.PERSON_TYPE personType, Person person) {
             this.name = name;
             this.uuid = uuid;
             this.predictedWinner.set(predictedWinner);
             this.personType = personType;
+            this.person = person;
         }
 
         public String getName() {
@@ -649,8 +727,8 @@ public class Main implements Initializable {
             return personType;
         }
 
-        public void setPersonType(DATA.PERSON_TYPE personType) {
-            this.personType = personType;
+        public Person getPerson() {
+            return person;
         }
     }
 }

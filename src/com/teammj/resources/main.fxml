@@ -174,11 +174,12 @@
                     </VBox>
                     <VBox style="-fx-padding: 0 0 0 15px">
                         <Pane style="-fx-padding: 15px 0 0 0">
-                            <Button styleClass="title" prefHeight="80" disable="true" fx:id="startRaceBtn">
+                            <Button styleClass="title" prefHeight="80" disable="true" fx:id="startRaceBtn" onMouseClicked="#startRace">
                                 START RACE!!!
                             </Button>
                         </Pane>
                     </VBox>
+                    <Label fx:id="didIwin"/>
                 </HBox>
             </bottom>
         </BorderPane>
