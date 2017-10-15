@@ -11,6 +11,10 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.control.Button?>
 <AnchorPane fx:id="root" minWidth="1280" minHeight="800" xmlns="http://javafx.com/javafx/8.0.121"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teammj.controller.Main">
     <children>
@@ -70,22 +74,35 @@
                         Persons
                     </Label>
                     <HBox>
-                        <TableView fx:id="tblViewPersons" prefHeight="${root.height - 300}" />
+                        <TableView fx:id="tblViewPersons" prefHeight="${root.height - 300}" maxWidth="330"/>
                         <VBox styleClass="border-property-inner-left">
-                            <children>
-                                <Label styleClass="header">
-                                    Add Athlete
-                                </Label>
-                                <RadioButton selected="true" text="Cyclist">
-                                    <toggleGroup>
-                                        <ToggleGroup fx:id="toggleGroup"/>
-                                    </toggleGroup>
-                                </RadioButton>
-                                <RadioButton text="Sprinter" toggleGroup="$toggleGroup" selected="false"/>
-                                <RadioButton text="Swimmer" toggleGroup="$toggleGroup" selected="false"/>
-                                <RadioButton text="SuperAthlete" toggleGroup="$toggleGroup" selected="false"/>
-                                <TextField promptText="Name" fx:id="txtFieldAName"/>
-                            </children>
+                            <Label styleClass="header">
+                                Add Athlete
+                            </Label>
+                            <RadioButton selected="true" text="Cyclist">
+                                <toggleGroup>
+                                    <ToggleGroup fx:id="toggleGroup"/>
+                                </toggleGroup>
+                            </RadioButton>
+                            <RadioButton text="Sprinter" toggleGroup="$toggleGroup"/>
+                            <RadioButton text="Swimmer" toggleGroup="$toggleGroup"/>
+                            <RadioButton text="SuperAthlete" toggleGroup="$toggleGroup"/>
+                            <TextField promptText="Name" fx:id="txtFieldAName"/>
+                            <TextField promptText="Age" fx:id="txtFieldAAge"/>
+                            <ComboBox fx:id="cmbAState" promptText="State">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="NSW" />
+                                        <String fx:value="QLD" />
+                                        <String fx:value="SA" />
+                                        <String fx:value="TAS" />
+                                        <String fx:value="VIC" />
+                                        <String fx:value="WA" />
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                            <Button text="Add Athlete" fx:id="addAthlete" onMouseClicked="#addNewAthlete"/>
+                            <Label fx:id="addAfeedBack"/>
                         </VBox>
                     </HBox>
                 </VBox>
@@ -94,7 +111,7 @@
                 <AnchorPane fx:id="centerPane">
                     <VBox>
                         <Label styleClass="subhead" prefWidth="${centerPane.width}" alignment="CENTER">
-                            Games
+                            Past Games
                         </Label>
                         <HBox styleClass="border-property-center">
                             <TableView fx:id="tblviewgames" prefHeight="${root.height - 300}" prefWidth="170"/>

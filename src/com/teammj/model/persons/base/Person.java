@@ -21,7 +21,7 @@ import java.util.UUID;
 public abstract class Person {
     private UUID UniqueID;
     private String name;
-    private int age;
+    private Integer age;
     private DATA.STATE fromState;
     private ArrayDeque<Game> gamesAttended = new ArrayDeque<>();
     private DATA.PERSON_TYPE personType;
@@ -64,5 +64,13 @@ public abstract class Person {
 
     public DATA.PERSON_TYPE getPersonType() {
         return personType;
+    }
+
+    public DATA.STATE getFromState() {
+        return fromState;
+    }
+
+    public int getAge() {
+        return age;
     }
 }

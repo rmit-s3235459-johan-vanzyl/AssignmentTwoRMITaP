@@ -3,11 +3,13 @@ package com.teammj.controller;
 import com.teammj.Ozlympic;
 import com.teammj.model.DATA;
 import com.teammj.model.games.Game;
-import com.teammj.model.persons.Referee;
+import com.teammj.model.persons.*;
 import com.teammj.model.persons.base.Athlete;
 import com.teammj.model.persons.base.Official;
 import com.teammj.model.persons.base.Person;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,12 +18,15 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
+import javax.swing.plaf.nimbus.State;
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
@@ -45,9 +50,51 @@ public class Main implements Initializable {
     public TableView<Athlete> tblViewAthletesRank;
     public ToggleGroup toggleGroup;
     public TextField txtFieldAName;
+    public TextField txtFieldAAge;
+    public ComboBox cmbAState;
+    public Button addAthlete;
+    public Label addAfeedBack;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        loadVbox.setOnMouseClicked(event -> loadFromFile());
+        setupPersonsTable();
+        setupGamesTable();
+        setupGameTable();
+        setupAthletesRank();
+        setupValidators();
+
+        generateDocument();
+    }
+
+    private void setupValidators() {
+        txtFieldAName.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (!txtFieldAName.getText().matches(DATA.FULL_NAME)) {
+                    addAfeedBack.setText("Wrong name input");
+                    txtFieldAName.setText("");
+                } else {
+                    addAfeedBack.setText("");
+                }
+            }
+
+        });
+
+        txtFieldAAge.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (!txtFieldAAge.getText().matches(DATA.POSTIVE_INTEGER_ONE_TO_NINE)) {
+                    addAfeedBack.setText("Wrong age input");
+                    txtFieldAAge.setText("");
+                } else {
+                    addAfeedBack.setText("");
+                }
+            }
+        });
+
+    }
 
     private void generateDocument() {
-        if(document != null) return;
+        if (document != null) return;
         document = DocumentHandler.generateSaveFile(null, athletes, officials, false, games);
         persons.addAll(athletes);
         persons.addAll(officials);
@@ -57,17 +104,6 @@ public class Main implements Initializable {
         document = DocumentHandler.generateSaveFile(Ozlympic.getCurrentStage(), athletes, officials, true);
         persons.addAll(athletes);
         persons.addAll(officials);
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        loadVbox.setOnMouseClicked(event -> loadFromFile());
-        setupPersonsTable();
-        setupGamesTable();
-        setupGameTable();
-        setupAthletesRank();
-
-        generateDocument();
     }
 
     private void setupAthletesRank() {
@@ -107,7 +143,7 @@ public class Main implements Initializable {
         tblviewgames.setItems(games);
         tblviewgames.getColumns().addAll(gameType, gameCount);
         tblviewgames.setOnMouseClicked(event -> {
-            if(tblviewgames.getSelectionModel().getSelectedItem() != null) {
+            if (tblviewgames.getSelectionModel().getSelectedItem() != null) {
                 fillInGameMap(tblviewgames.getSelectionModel().getSelectedItem());
             }
 
@@ -120,8 +156,8 @@ public class Main implements Initializable {
         HashMap<Athlete, Integer> map = (HashMap<Athlete, Integer>) selectedItem.getAthleteTimes();
         map.forEach((a, i) -> athleteGameMap.add(new AthleteMap(a.getName(), i, a.getPoints())));
         selectedItem.getParticipants().forEach(person -> {
-            if(person instanceof Referee) {
-                athleteGameMap.add(new AthleteMap(person.getName() + " (ref)",0,0));
+            if (person instanceof Referee) {
+                athleteGameMap.add(new AthleteMap(person.getName() + " (ref)", 0, 0));
             }
         });
     }
@@ -129,8 +165,12 @@ public class Main implements Initializable {
     private void setupPersonsTable() {
         TableColumn<Person, String> nameColumn = new TableColumn<>("Name");
         TableColumn<Person, DATA.PERSON_TYPE> typeColumn = new TableColumn<>("Type");
+        TableColumn<Person, DATA.STATE> stateColumn = new TableColumn<>("State");
+        TableColumn<Person, Integer> ageColumn = new TableColumn<>("Age");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("personType"));
+        stateColumn.setCellValueFactory(new PropertyValueFactory<>("fromState"));
+        ageColumn.setCellValueFactory(new PropertyValueFactory<>("age"));
 
         nameColumn.setPrefWidth(140.0);
         typeColumn.setPrefWidth(70.0);
@@ -139,7 +179,7 @@ public class Main implements Initializable {
             TableRow<Person> tableRow = new TableRow<>();
 
             tableRow.setOnDragDetected(event -> {
-                if(!tableRow.isEmpty()) {
+                if (!tableRow.isEmpty()) {
                     Integer index = tableRow.getIndex();
                     Dragboard dragboard = tableRow.startDragAndDrop(TransferMode.COPY);
                     dragboard.setDragView(tableRow.snapshot(null, null));
@@ -154,7 +194,7 @@ public class Main implements Initializable {
         });
 
         tblViewPersons.setItems(persons);
-        tblViewPersons.getColumns().addAll(nameColumn, typeColumn);
+        tblViewPersons.getColumns().addAll(nameColumn, typeColumn, stateColumn, ageColumn);
     }
 
     public static void loadFromFile(String... args) {
@@ -166,10 +206,10 @@ public class Main implements Initializable {
 
         games.clear();
 
-        if(args.length > 0) {
+        if (args.length > 0) {
             File file = new File(args[0]);
             System.out.println(file);
-            if(!file.exists()) {
+            if (!file.exists()) {
                 System.err.println("Specified load file does not exist");
                 System.exit(1);
             }
@@ -195,14 +235,13 @@ public class Main implements Initializable {
 
     }
 
-
     public void exit() {
         escape();
     }
 
     public static void escape() {
         new Thread(() -> {
-            if(document != null) {
+            if (document != null) {
                 DocumentHandler.saveGame(document, null, new File("AutoSave.xml"));
             }
             Platform.exit();
@@ -215,8 +254,92 @@ public class Main implements Initializable {
     }
 
     public void saveFile() {
-        if(document == null) return;
+        if (document == null) return;
         DocumentHandler.saveGame(document, Ozlympic.getCurrentStage());
+    }
+
+    public void addNewAthlete() {
+        try {
+            if(txtFieldAAge.getText().length() < 1) {
+                addAfeedBack.setText("Please input age.");
+                return;
+            }
+            if(txtFieldAName.getText().length() < 3) {
+                addAfeedBack.setText("Please enter name.");
+                return;
+            }
+
+            String typeToAdd = ((RadioButton) toggleGroup.getSelectedToggle()).getText();
+            String sState = (String) cmbAState.getValue();
+            if(sState == null) {
+                addAfeedBack.setText("Please select state");
+                return;
+            }
+
+            Integer age = Integer.valueOf(txtFieldAAge.getText());
+            String name = txtFieldAName.getText();
+            DATA.STATE stateType;
+
+            switch (sState) {
+                case "NSW":
+                    stateType = DATA.STATE.NSW;
+                    break;
+                case "QLD":
+                    stateType = DATA.STATE.QLD;
+                    break;
+                case "SA":
+                    stateType = DATA.STATE.SA;
+                    break;
+                case "TAS":
+                    stateType = DATA.STATE.TAS;
+                    break;
+                case "VIC":
+                    stateType = DATA.STATE.VIC;
+                    break;
+                case "WA":
+                    stateType = DATA.STATE.WA;
+                    break;
+                default:
+                    addAfeedBack.setText("Please select state");
+                    return;
+            }
+            addAfeedBack.setText("");
+
+            Element element;
+
+            Athlete athlete = null;
+            switch (typeToAdd) {
+                case "Cyclist":
+                    element = DocumentHandler.addCyclist(document);
+                    if (element != null)
+                        athlete = new Cyclist(name, age, stateType, element);
+                    break;
+                case "Sprinter":
+                    element = DocumentHandler.addSprinter(document);
+                    if (element != null)
+                        athlete = new Sprinter(name, age, stateType, element);
+                    break;
+                case "Swimmer":
+                    element = DocumentHandler.addSwimmer(document);
+                    if (element != null)
+                        athlete = new Swimmer(name, age, stateType, element);
+                    break;
+                case "SuperAthlete":
+                    element = DocumentHandler.addSuperAthlete(document);
+                    if (element != null)
+                        athlete = new SuperAthlete(name, age, stateType, element);
+                    break;
+                default:
+                    return;
+            }
+
+            if(athlete != null) {
+                persons.add(athlete);
+                athletes.add(athlete);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public class AthleteMap {

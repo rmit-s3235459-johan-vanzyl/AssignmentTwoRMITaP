@@ -468,4 +468,53 @@ public final class DocumentHandler {
             }
         });
     }
+
+    static Element addCyclist(final Document document) {
+        try {
+            Element root = (Element) document.getElementsByTagName(DATA.CYCLISTS).item(0);
+            Element cyclist = document.createElement(DATA.ATHLETE_TYPE.cyclist.toString());
+            root.appendChild(cyclist);
+            return cyclist;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    static Element addSprinter(final Document document) {
+        try {
+            Element root = (Element) document.getElementsByTagName(DATA.SPRINTERS).item(0);
+            Element sprinter = document.createElement(DATA.ATHLETE_TYPE.sprinter.toString());
+            root.appendChild(sprinter);
+            return sprinter;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    static Element addSwimmer(final Document document) {
+        try {
+            Element root = (Element) document.getElementsByTagName(DATA.SWIMMERS).item(0);
+            Element swimmer = document.createElement(DATA.ATHLETE_TYPE.swimmer.toString());
+            root.appendChild(swimmer);
+            return swimmer;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    static Element addSuperAthlete(final Document document) {
+        try {
+            Element root = (Element) document.getElementsByTagName(DATA.SUPERATHLETES).item(0);
+            Element superAthlete = document.createElement(DATA.ATHLETE_TYPE.superAthlete.toString());
+            root.appendChild(superAthlete);
+            return superAthlete;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

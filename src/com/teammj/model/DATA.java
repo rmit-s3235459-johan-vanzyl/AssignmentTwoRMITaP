@@ -12,8 +12,8 @@ import java.util.*;
  * @author Michael Guida
  */
 public interface DATA {
-    String POSTIVE_INTEGER_ONE_TO_NINE = "[1-9]\\d*"; //REGEX
-    String POSTIVE_INTEGER_ONE_TO_FOUR = "[1-4]\\d*"; //REGEX
+    String POSTIVE_INTEGER_ONE_TO_NINE = "^([1-9][0-9]+|[1-9])$"; //REGEX
+    String FULL_NAME = "^\\p{L}+[\\p{L}\\p{Z}\\p{P}]{0,}"; //REGEX
 
     String menuText = "Ozlympic Games\n" +
             "===================================\n" +
