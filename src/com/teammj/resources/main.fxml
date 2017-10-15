@@ -1,0 +1,38 @@
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TreeTableView?>
+<?import javafx.scene.control.TreeTableColumn?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Label?>
+
+<?import com.teammj.view.components.*?>
+<AnchorPane fx:id="root" minWidth="1280" minHeight="800" xmlns="http://javafx.com/javafx/8.0.121"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teammj.controller.Main">
+    <BorderPane>
+        <top>
+            <ToolBar>
+                <leftItems>
+                    <Label>
+                        Text
+                    </Label>
+                </leftItems>
+            </ToolBar>
+        </top>
+        <left>
+            <TreeTableView>
+                <columns>
+                    <TreeTableColumn text="Name"/>
+                    <TreeTableColumn text="Type"/>
+                </columns>
+            </TreeTableView>
+        </left>
+        <bottom>
+            <VBox>
+                <HBox>
+
+                </HBox>
+            </VBox>
+        </bottom>
+    </BorderPane>
+</AnchorPane>

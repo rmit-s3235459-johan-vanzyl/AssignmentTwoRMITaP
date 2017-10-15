@@ -1,0 +1,18 @@
+/*.root{*/
+    /*-fx-background-color: lightgreen;*/
+/*}*/
+
+.button{
+    -fx-font-weight: bold;
+    -fx-background-color: lavender;
+    -fx-background-radius: 3px;
+    -fx-font-family: courier;
+}
+
+.bottomPane{
+    -fx-background-color: azure;
+}
+
+.root{
+    -fx-background-color: skyblue;
+}

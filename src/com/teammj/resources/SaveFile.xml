@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<ozlympics>
+    <persons>
+        <athletes>
+            <swimmers>
+                <swimmer UUID="89117544-3b9d-44cf-b98a-afcdf581f373" age="31" name="Marquita Helms" points="10" state="NSW"/>
+                <swimmer UUID="0bb98690-64ad-4777-a10c-047ab8405f67" age="28" name="Lonnie Chu" points="10" state="VIC"/>
+                <swimmer UUID="856b7c6b-dd8f-4d0b-80ad-22ed547ab878" age="41" name="Mallie Kell" points="10" state="WA"/>
+                <swimmer UUID="06fb7ccd-abda-43a6-abb5-8a82097e6895" age="26" name="Yong Gourley" points="10" state="NSW"/>
+                <swimmer UUID="06d944d3-243a-45a9-89bb-9828e84a6fab" age="44" name="Assunta Foshee" points="10" state="QLD"/>
+                <swimmer UUID="9138abe2-d118-4aa1-a0b1-9473d4922f56" age="24" name="Shizue Langevin" points="10" state="WA"/>
+                <swimmer UUID="39f7bdf1-24ec-4659-b183-8eec22d24d61" age="29" name="Tawanda Schexnayder" points="10" state="WA"/>
+            </swimmers>
+            <sprinters>
+                <sprinter UUID="352da8c9-1e96-4148-9680-0dca9fe04c85" age="23" name="Cathy Blackford" points="10" state="VIC"/>
+                <sprinter UUID="03f4dbb2-1478-4f81-b581-3d3b0efeaf52" age="34" name="Melisa Oros" points="10" state="WA"/>
+                <sprinter UUID="c0d161b2-d382-4852-9029-36b9f8cc683e" age="25" name="Kiera Points" points="10" state="VIC"/>
+                <sprinter UUID="ffd64655-db04-4215-a398-00488cc53ac9" age="35" name="Shaunte Orlandi" points="10" state="TAS"/>
+                <sprinter UUID="c69c6c6a-7dd3-4393-a1c9-368d7e1d59dd" age="24" name="Loriann Points" points="10" state="SA"/>
+                <sprinter UUID="efe9f1e6-9607-4e94-ab00-42d6d1ad199d" age="41" name="Sallie Tullis" points="10" state="VIC"/>
+                <sprinter UUID="fbdf6560-23da-4386-b68b-7a5ed7c7bbc5" age="22" name="Broderick Nicolson" points="10" state="NSW"/>
+            </sprinters>
+            <cyclists>
+                <cyclist UUID="7420d284-98af-4754-a602-8275d90bee5e" age="34" name="Freddy Yeager" points="10" state="VIC"/>
+                <cyclist UUID="c7ddbc42-4a7b-43bb-8353-18e18dca8bef" age="42" name="Beryl Mojica" points="10" state="NSW"/>
+                <cyclist UUID="6ed72aac-11bd-4f99-996d-f25283aa0757" age="24" name="Adrian Riffel" points="10" state="VIC"/>
+                <cyclist UUID="2e0f1c99-82ba-4b8e-8fbb-c74deb3d0a50" age="32" name="Samatha Varley" points="10" state="SA"/>
+                <cyclist UUID="cdd4d64b-5067-48e3-a064-ce21535e0432" age="28" name="Daniell Pokorny" points="10" state="TAS"/>
+                <cyclist UUID="1239e98e-7366-4047-aec7-802b065f1c81" age="47" name="Michaela Keniston" points="10" state="VIC"/>
+                <cyclist UUID="a894378b-6521-4d95-8288-57f2df899d89" age="40" name="Yasuko Rothfuss" points="10" state="QLD"/>
+            </cyclists>
+            <superAthletes
+                <superAthlete UUID="f71a95c7-2f8d-40a5-b074-fea953a6c2b7" age="36" name="Elana Brannon" points="10" state="VIC"/>
+                <superAthlete UUID="34db2801-c3c7-4c92-b284-0c0b36c750d9" age="19" name="Kyle Cremer" points="10" state="SA"/>
+                <superAthlete UUID="15cb3571-51c6-4394-a79d-76a73dcbfb22" age="41" name="Jade Strachan" points="10" state="NSW"/>
+                <superAthlete UUID="0cd8d04a-d253-4c62-a8d0-7bc67e6e07fa" age="23" name="Faviola Carmon" points="10" state="VIC"/>
+                <superAthlete UUID="6bab9bad-6a5a-4b7e-a68f-e4b9751e0d7e" age="41" name="Carey Lieberman" points="10" state="VIC"/>
+                <superAthlete UUID="9435d575-48b3-4961-87cc-636752a6e2a3" age="34" name="Ramonita Cali" points="10" state="TAS"/>
+                <superAthlete UUID="ae0c51c9-5ead-4a23-939e-d25607a567c6" age="20" name="Susana Cox" points="10"  state="WA"/>
+                <superAthlete UUID="cb2f5f4c-3813-417d-b7c7-e62d4141cb9b" age="19" name="Beckie Carlsen" points="10"state="QLD"/>
+                <superAthlete UUID="5d5c3ad5-2db8-4e3a-946a-22afa4516425" age="47" name="Serafina Colgan" points="10" state="QLD"/>
+            </superAthletes>
+        </athletes>
+        <officials>
+            <referees>
+                <referee UUID="81137011-f8b8-4b6d-b26c-e92874b23f36" age="46" name="Vina Shelman" state="WA"/>
+                <referee UUID="05655b3c-bb75-4977-a86f-c2abf6be7de3" age="42" name="Starr Lade" state="SA"/>
+                <referee UUID="fce3d736-ba36-4004-be0d-3613f64a9c79" age="47" name="Eileen Grillo" state="VIC"/>
+                <referee UUID="304fbfed-aea1-436d-ad67-b00dedb4c095" age="36" name="Maryjane Casady" state="WA"/>
+                <referee UUID="feed6e22-cfc8-433e-848e-1f1ca1a49e68" age="34" name="Hilaria Vigil" state="SA"/>
+                <referee UUID="6197984c-bcd0-4f40-b95c-9b9b2698f405" age="22" name="John Masters" state="NSW"/>
+                <referee UUID="0bfb2303-f729-4b5c-9f2c-f985049205fa" age="39" name="Myra Stepney" state="WA"/>
+                <referee UUID="edca284f-ca73-412d-b11c-fc2edf660c39" age="27" name="Beryl Victorino" state="TAS"/>
+                <referee UUID="27a605e8-6faa-4a06-819c-0eb6475d04ec" age="36" name="Leena Kaup" state="SA"/>
+                <referee UUID="175a7ffd-58fe-48ab-93e9-f51d3010a857" age="46" name="Stepanie Charette" state="WA"/>
+            </referees>
+        </officials>
+    </persons>
+    <games>
+		<swimming>
+			<game uniqueID="S01" beenRan="true">
+				<person UUID="89117544-3b9d-44cf-b98a-afcdf581f373" />
+				<person UUID="0bb98690-64ad-4777-a10c-047ab8405f67" />
+				<person UUID="856b7c6b-dd8f-4d0b-80ad-22ed547ab878" />
+				<person UUID="06fb7ccd-abda-43a6-abb5-8a82097e6895" />
+				<person UUID="5d5c3ad5-2db8-4e3a-946a-22afa4516425" />
+				<person UUID="81137011-f8b8-4b6d-b26c-e92874b23f36" />
+				<athlete UUID="89117544-3b9d-44cf-b98a-afcdf581f373" time="101"/>
+				<athlete UUID="0bb98690-64ad-4777-a10c-047ab8405f67" time="121"/>
+				<athlete UUID="856b7c6b-dd8f-4d0b-80ad-22ed547ab878" time="131"/>
+				<athlete UUID="06fb7ccd-abda-43a6-abb5-8a82097e6895" time="141"/>
+				<athlete UUID="5d5c3ad5-2db8-4e3a-946a-22afa4516425" time="151"/>
+			</game>
+        </swimming>
+        <sprinting/>
+        <cycling/>
+    </games>
+</ozlympics>
