@@ -8,6 +8,9 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.TextField?>
 <AnchorPane fx:id="root" minWidth="1280" minHeight="800" xmlns="http://javafx.com/javafx/8.0.121"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teammj.controller.Main">
     <children>
@@ -15,6 +18,7 @@
             <top>
                 <ToolBar prefWidth="${root.width}">
                     <leftItems>
+
                         <VBox fx:id="loadVbox">
                             <ImageView>
                                 <image>
@@ -37,6 +41,16 @@
                         </VBox>
                     </leftItems>
                     <rightItems>
+                        <VBox onMouseClicked="#generateSaveFile">
+                            <ImageView>
+                                <image>
+                                    <Image url="icons/settings-gears.png" />
+                                </image>
+                            </ImageView>
+                            <Label>
+                                Generate
+                            </Label>
+                        </VBox>
                         <VBox onMouseClicked="#exit">
                             <ImageView>
                                 <image>
@@ -55,7 +69,25 @@
                     <Label styleClass="subhead" alignment="CENTER">
                         Persons
                     </Label>
-                    <TableView fx:id="tblViewPersons" prefHeight="${root.height - 300}" />
+                    <HBox>
+                        <TableView fx:id="tblViewPersons" prefHeight="${root.height - 300}" />
+                        <VBox styleClass="border-property-inner-left">
+                            <children>
+                                <Label styleClass="header">
+                                    Add Athlete
+                                </Label>
+                                <RadioButton selected="true" text="Cyclist">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="toggleGroup"/>
+                                    </toggleGroup>
+                                </RadioButton>
+                                <RadioButton text="Sprinter" toggleGroup="$toggleGroup" selected="false"/>
+                                <RadioButton text="Swimmer" toggleGroup="$toggleGroup" selected="false"/>
+                                <RadioButton text="SuperAthlete" toggleGroup="$toggleGroup" selected="false"/>
+                                <TextField promptText="Name" fx:id="txtFieldAName"/>
+                            </children>
+                        </VBox>
+                    </HBox>
                 </VBox>
             </left>
             <center>

@@ -10,10 +10,9 @@ import com.teammj.model.persons.base.Person;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableRow;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -44,16 +43,20 @@ public class Main implements Initializable {
     public TableView<Game> tblviewgames;
     public TableView<AthleteMap> tblViewGame;
     public TableView<Athlete> tblViewAthletesRank;
+    public ToggleGroup toggleGroup;
+    public TextField txtFieldAName;
 
     private void generateDocument() {
+        if(document != null) return;
         document = DocumentHandler.generateSaveFile(null, athletes, officials, false, games);
         persons.addAll(athletes);
         persons.addAll(officials);
-        tblViewPersons.setItems(persons);
     }
 
-    private void generateSaveFile() {
+    public void generateSaveFile() {
         document = DocumentHandler.generateSaveFile(Ozlympic.getCurrentStage(), athletes, officials, true);
+        persons.addAll(athletes);
+        persons.addAll(officials);
     }
 
     @Override

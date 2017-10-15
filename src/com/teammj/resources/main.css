@@ -12,6 +12,7 @@
     light-background: #FAFAFA;
     -fx-font-family: "Roboto";
 }
+
 @font-face {
     font-family: Roboto;
     src: url("/roboto/Roboto-Regular.ttf");
@@ -46,10 +47,43 @@
     -fx-text-fill: primary-text-color;
 }
 
+/**********************************
+            General
+ **********************************/
+
 #tblviewgames:hover {
     -fx-cursor: hand;
 }
 
+.border-property-inner-left {
+    -fx-border-color: divider-color;
+    -fx-border-width: 0;
+    -fx-padding: 8px;
+}
+
+.border-property-left {
+    -fx-border-color: divider-color;
+    -fx-border-width: 0 2px 0 0;
+}
+
+.border-property-center {
+    -fx-border-color: divider-color;
+    -fx-border-width: 2px 2px 0 0;
+}
+
+.table-view {
+    -fx-focus-color: transparent;
+    -fx-border-width: 0;
+}
+
+.table-columns {
+    -fx-border-color: divider-color;
+    -fx-border-width: 1px;
+}
+
+/************************************
+*************************************
+*************************************/
 
 /*********************
     ToolBar
@@ -81,24 +115,8 @@
     -fx-cursor: hand;
 }
 
-.border-property-left {
-    -fx-border-color: divider-color;
-    -fx-border-width: 0 2px 0 0;
-}
-
-.border-property-center {
-    -fx-border-color: divider-color;
-    -fx-border-width: 2px 2px 0 0;
-}
-
-.table-view {
-    -fx-focus-color: transparent;
-    -fx-border-width: 0;
-}
-
-.table-columns {
-    -fx-border-color: divider-color;
-    -fx-border-width: 1px;
+.border-property-inner-left * {
+    -fx-padding: 3 0;
 }
 
 /*****************************
@@ -118,6 +136,12 @@
     -fx-font-family: "Roboto Bold";
     -fx-font-size: 20.0;
     -fx-font-weight: BOLD;
+}
+
+.header {
+    -fx-font-family: "Roboto Bold";
+    -fx-font-weight: BOLD;
+    -fx-font-size: 15.0;
 }
 
 /*************************
