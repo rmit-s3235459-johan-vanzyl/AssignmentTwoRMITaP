@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * ProgramData interface for console text, generating a random time states,
  * athlete types and names
- * and official names.
+ * and Referee names.
  * @author Johan van Zyl
  * @author Michael Guida
  */
@@ -48,6 +48,10 @@ public interface DATA {
             "Enter an option: _\n";
 
 
+    enum PERSON_TYPE {
+        Swimmer, Cyclist, Sprinter, SuperAthlete, Referee
+    }
+
     enum ATHLETE_TYPE {
         swimmer, cyclist, sprinter, superAthlete;
         private static final List<ATHLETE_TYPE> ATHLETE_TYPE_LIST = Collections.unmodifiableList(Arrays.asList(values()));
@@ -84,7 +88,7 @@ public interface DATA {
     String ATHLETES = "persons";
     String OFFICIALS = "officials";
     String REFEREES = "referees";
-    String REFEREE = "referee";
+    String REFEREE = "Referee";
 
     String UUID = "UUID";
     String NAME = "name";

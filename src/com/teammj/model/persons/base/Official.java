@@ -16,8 +16,8 @@ import java.util.UUID;
  */
 public abstract class Official extends Person {
 
-    protected Official(String name, int age, DATA.STATE fromState, Element element, UUID... uuid) {
-        super(name, age, fromState, element, uuid);
+    protected Official(String name, int age, DATA.STATE fromState, Element element, DATA.PERSON_TYPE personType, UUID... uuid) {
+        super(name, age, fromState, element, personType, uuid);
     }
 
 }

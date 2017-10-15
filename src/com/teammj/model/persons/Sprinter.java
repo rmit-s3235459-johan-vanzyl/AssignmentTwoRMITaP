@@ -16,15 +16,15 @@ import java.util.UUID;
  */
 public final class Sprinter extends Athlete {
     public Sprinter(String name, int age, DATA.STATE fromState, Element element, UUID... uuids) {
-        super(name, age, fromState, element, uuids);
+        super(name, age, fromState, element, DATA.PERSON_TYPE.Sprinter, uuids);
         System.out.printf("Hello, my name is %s and I am %d years old. " +
-                "I am also a sprinter.\n", name, age);
+                "I am also a Sprinter.\n", name, age);
     }
 
     /**
      * Compete in game method
      * @param game - game competing in
-     * @return - time sprinter spent sprinting in game
+     * @return - time Sprinter spent sprinting in game
      */
     @Override
     public int compete(Game game) {

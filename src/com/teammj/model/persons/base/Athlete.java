@@ -25,8 +25,8 @@ public abstract class Athlete extends Person implements Comparable<Athlete> {
 
     private int points;
 
-    protected Athlete(String name, int age, DATA.STATE fromState, Element element, UUID... uuids) {
-        super(name, age, fromState, element, uuids);
+    protected Athlete(String name, int age, DATA.STATE fromState, Element element, DATA.PERSON_TYPE personType, UUID... uuids) {
+        super(name, age, fromState, element, personType, uuids);
         DocumentHandler.setAttr(DATA.POINTS, "0", element);
         points = 0;
     }

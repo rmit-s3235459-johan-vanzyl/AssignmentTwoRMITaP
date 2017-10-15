@@ -51,18 +51,17 @@ public class Ozlympic extends Application {
      */
     private void createStage() {
         try {
-
             Parent root = FXMLLoader.load(getClass().getResource("/main.fxml"));
-            Scene scene = new Scene (root, 1024, 720);//720p?
+            Scene scene = new Scene (root, 1280, 720);//720p?
             final ObservableList<String> styleSheets = scene.getStylesheets();
             styleSheets.add(Ozlympic.class.getResource("/main.css").toExternalForm());
             currentStage.setTitle("Ozlympics");
             currentStage.setScene(scene);
             currentStage.show();
         } catch (IOException e) {
-            System.err.println("__Please ensure main.fxml is available in the directory__.");
-            System.err.println("__Please ensure main.css is available in the directory__.");
             System.err.println("__Please ensure 'resources' folder is set in IDE (tested in Intellij)___.");
+            System.err.println("__Please ensure 'source' folder is set in IDE (tested in Intellij)___.");
+            System.err.println("If you still get errors, please contact s3235459@student.rmit.edu.au");
             e.printStackTrace();
         }
     }

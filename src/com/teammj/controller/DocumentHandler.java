@@ -11,6 +11,7 @@ import com.teammj.model.persons.*;
 import com.teammj.model.persons.base.Athlete;
 import com.teammj.model.persons.base.Official;
 import com.teammj.model.persons.base.Person;
+import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import org.w3c.dom.Attr;
@@ -44,8 +45,8 @@ public class DocumentHandler {
     }
 
     static Document generateSaveFile(final Window window,
-                                     final ArrayList<Athlete> athletes,
-                                     final ArrayDeque<Official> officials) {
+                                     final ObservableList<Athlete> athletes,
+                                     final ObservableList<Official> officials) {
         File outputFile;
         Document document = null;
         if (window != null) {
@@ -202,9 +203,9 @@ public class DocumentHandler {
     }
 
     public static Document loadFromSavedFile(@Nullable final Window window,
-                                             final ArrayList<Athlete> athletes,
-                                             final ArrayDeque<Official> officials,
-                                             final ArrayDeque<Game> games, File... files) {
+                                             final ObservableList<Athlete> athletes,
+                                             final ObservableList<Official> officials,
+                                             final ObservableList<Game> games, File... files) {
         File fileToLoad;
         Document document = null;
         if (files.length > 0) {
@@ -296,7 +297,7 @@ public class DocumentHandler {
         return state;
     }
 
-    private static Map<Athlete, Integer> parseAthleteTimes(NodeList nodeList, ArrayList<Athlete> athletes) {
+    private static Map<Athlete, Integer> parseAthleteTimes(NodeList nodeList, ObservableList<Athlete> athletes) {
         Map<Athlete, Integer> athleteTimes = new HashMap<>();
 
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -316,8 +317,8 @@ public class DocumentHandler {
     }
 
     private static ArrayList<Person> parsePersonsAttended(NodeList nodeList,
-                                                          ArrayList<Athlete> athletes,
-                                                          ArrayDeque<Official> officials) {
+                                                          ObservableList<Athlete> athletes,
+                                                          ObservableList<Official> officials) {
         ArrayList<Person> persons = new ArrayList<>();
         for (int i = 0; i < nodeList.getLength(); i++) {
             Element root = (Element) nodeList.item(i);
@@ -342,8 +343,8 @@ public class DocumentHandler {
 
     private static Game parseGame(Element element,
                                   DATA.GAMETYPE gametype,
-                                  ArrayList<Athlete> athletes,
-                                  ArrayDeque<Official> officials) {
+                                  ObservableList<Athlete> athletes,
+                                  ObservableList<Official> officials) {
         Game game = null;
         switch (gametype) {
             case CYCLING:
@@ -373,8 +374,8 @@ public class DocumentHandler {
     }
 
     private static ArrayList<Game> parseGames(Document document,
-                                              ArrayList<Athlete> athletes,
-                                              ArrayDeque<Official> officials) {
+                                              ObservableList<Athlete> athletes,
+                                              ObservableList<Official> officials) {
 
         ArrayList<Game> games = new ArrayList<>();
         // Swimming Games

@@ -22,7 +22,7 @@ import java.util.UUID;
  */
 public final class SuperAthlete extends Athlete {
     public SuperAthlete(String name, int age, DATA.STATE fromState, Element element, UUID... uuids) {
-        super(name, age, fromState, element, uuids);
+        super(name, age, fromState, element, DATA.PERSON_TYPE.SuperAthlete, uuids);
         System.out.printf("Hello, my name is %s and I am %d years old. " +
                 "I am also a Super Athlete.\n", name, age);
         setPoints(50);

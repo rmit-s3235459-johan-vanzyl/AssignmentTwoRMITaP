@@ -18,9 +18,9 @@ import java.util.UUID;
 
 public final class Referee extends Official {
     public Referee(String name, int age, DATA.STATE fromState, Element element, UUID... uuid) {
-        super(name, age, fromState, element, uuid);
+        super(name, age, fromState, element, DATA.PERSON_TYPE.Referee, uuid);
         System.out.printf("Hello, my name is %s and I am %d years old." +
-                " I am also a referee.\n", name, age);
+                " I am also a Referee.\n", name, age);
     }
 
     /**

@@ -24,13 +24,15 @@ public abstract class Person {
     private int age;
     private DATA.STATE fromState;
     private ArrayDeque<Game> gamesAttended = new ArrayDeque<>();
+    private DATA.PERSON_TYPE personType;
     protected Element element;
 
-    Person(String name, int age, DATA.STATE fromState, Element element, UUID ...uuid) {
+    Person(String name, int age, DATA.STATE fromState, Element element, DATA.PERSON_TYPE personType, UUID ...uuid) {
         this.name = name;
         this.age = age;
         this.fromState = fromState;
         this.element = element;
+        this.personType = personType;
 
         if(uuid.length > 0) {
             this.UniqueID = uuid[0];
@@ -58,5 +60,9 @@ public abstract class Person {
 
     public void setElement(Element element) {
         this.element = element;
+    }
+
+    public DATA.PERSON_TYPE getPersonType() {
+        return personType;
     }
 }
