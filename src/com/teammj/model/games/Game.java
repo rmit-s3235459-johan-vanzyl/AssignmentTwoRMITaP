@@ -30,4 +30,5 @@ public interface Game  {
     void addParticipant(Person participant);
     public DATA.GAMETYPE getGametype();
     public Integer getCount();
+    public void setCount(Integer i);
 }

@@ -55,7 +55,7 @@
                     <Label styleClass="subhead" alignment="CENTER">
                         Persons
                     </Label>
-                    <TableView fx:id="tblViewPersons" prefHeight="${root.height - 300}" editable="true"/>
+                    <TableView fx:id="tblViewPersons" prefHeight="${root.height - 300}" />
                 </VBox>
             </left>
             <center>
@@ -65,12 +65,20 @@
                             Games
                         </Label>
                         <HBox styleClass="border-property-center">
-                            <TableView fx:id="tblViewGames" prefHeight="${root.height - 300}"/>
-                            <TableView fx:id="tblViewGame" prefHeight="${root.height - 300}"/>
+                            <TableView fx:id="tblviewgames" prefHeight="${root.height - 300}" prefWidth="170"/>
+                            <TableView fx:id="tblViewGame" prefHeight="${root.height - 300}" />
                         </HBox>
                     </VBox>
                 </AnchorPane>
             </center>
+            <right>
+                <VBox>
+                    <Label styleClass="subhead" alignment="CENTER">
+                        Athlete's Rank
+                    </Label>
+                    <TableView fx:id="tblViewAthletesRank" prefHeight="${root.height - 300}" />
+                </VBox>
+            </right>
             <bottom>
                 <VBox>
                     <HBox>

@@ -1,6 +1,7 @@
 package com.teammj.controller;
 
 import com.sun.istack.internal.Nullable;
+import com.teammj.Ozlympic;
 import com.teammj.model.DATA;
 import com.teammj.model.games.CyclingGame;
 import com.teammj.model.games.Game;
@@ -43,9 +44,11 @@ public final class DocumentHandler {
         attr.setValue(value);
     }
 
-    static Document generateSaveFile(final Window window,
+    static Document generateSaveFile(@Nullable final Window window,
                                      final ObservableList<Athlete> athletes,
-                                     final ObservableList<Official> officials) {
+                                     final ObservableList<Official> officials,
+                                     boolean addPersons,
+                                     final ObservableList<Game>... games) {
         File outputFile;
         Document document = null;
         if (window != null) {
@@ -56,13 +59,18 @@ public final class DocumentHandler {
             outputFile = fileChooser.showSaveDialog(window);
             if (outputFile == null) return null;
         } else {
-            // TODO: prompt user file overwrite
-            outputFile = new File("saveFile.xml");
+            outputFile = new File("AutoSave.xml");
             if (outputFile.exists()) {
-                if (!outputFile.delete()) {
-                    System.err.println("Error deleting previous save file. Please close");
-                    return null;
+                if (games.length > 0) {
+                    return loadFromSavedFile(
+                            null,
+                            athletes,
+                            officials,
+                            games[0],
+                            outputFile
+                    );
                 }
+                return null;
             }
         }
 
@@ -90,38 +98,40 @@ public final class DocumentHandler {
             Element rootSuperAthletes = document.createElement(DATA.SUPERATHLETES);
             rootAthletes.appendChild(rootSuperAthletes);
 
-            for (String athleteName : DATA.athleteNames) {
-                DATA.ATHLETE_TYPE athleteType = DATA.ATHLETE_TYPE.randomAthlete();
-                Element element;
-                switch (athleteType) {
-                    case swimmer:
-                        element = document.createElement(DATA.ATHLETE_TYPE.swimmer.toString());
-                        rootSwimmers.appendChild(element);
-                        athletes.add(
-                                new Swimmer(athleteName, 18 + Utilities.random.nextInt(30), DATA.STATE.randomState(), element)
-                        );
-                        break;
-                    case cyclist:
-                        element = document.createElement(DATA.ATHLETE_TYPE.cyclist.toString());
-                        rootCyclists.appendChild(element);
-                        athletes.add(
-                                new Cyclist(athleteName, 18 + Utilities.random.nextInt(30), DATA.STATE.randomState(), element)
-                        );
-                        break;
-                    case sprinter:
-                        element = document.createElement(DATA.ATHLETE_TYPE.sprinter.toString());
-                        rootSprinters.appendChild(element);
-                        athletes.add(
-                                new Sprinter(athleteName, 18 + Utilities.random.nextInt(30), DATA.STATE.randomState(), element)
-                        );
-                        break;
-                    case superAthlete:
-                        element = document.createElement(DATA.ATHLETE_TYPE.superAthlete.toString());
-                        rootSuperAthletes.appendChild(element);
-                        athletes.add(
-                                new SuperAthlete(athleteName, 18 + Utilities.random.nextInt(30), DATA.STATE.randomState(), element)
-                        );
-                        break;
+            if (addPersons) {
+                for (String athleteName : DATA.athleteNames) {
+                    DATA.ATHLETE_TYPE athleteType = DATA.ATHLETE_TYPE.randomAthlete();
+                    Element element;
+                    switch (athleteType) {
+                        case swimmer:
+                            element = document.createElement(DATA.ATHLETE_TYPE.swimmer.toString());
+                            rootSwimmers.appendChild(element);
+                            athletes.add(
+                                    new Swimmer(athleteName, 18 + Utilities.random.nextInt(30), DATA.STATE.randomState(), element)
+                            );
+                            break;
+                        case cyclist:
+                            element = document.createElement(DATA.ATHLETE_TYPE.cyclist.toString());
+                            rootCyclists.appendChild(element);
+                            athletes.add(
+                                    new Cyclist(athleteName, 18 + Utilities.random.nextInt(30), DATA.STATE.randomState(), element)
+                            );
+                            break;
+                        case sprinter:
+                            element = document.createElement(DATA.ATHLETE_TYPE.sprinter.toString());
+                            rootSprinters.appendChild(element);
+                            athletes.add(
+                                    new Sprinter(athleteName, 18 + Utilities.random.nextInt(30), DATA.STATE.randomState(), element)
+                            );
+                            break;
+                        case superAthlete:
+                            element = document.createElement(DATA.ATHLETE_TYPE.superAthlete.toString());
+                            rootSuperAthletes.appendChild(element);
+                            athletes.add(
+                                    new SuperAthlete(athleteName, 18 + Utilities.random.nextInt(30), DATA.STATE.randomState(), element)
+                            );
+                            break;
+                    }
                 }
             }
 
@@ -132,13 +142,16 @@ public final class DocumentHandler {
             Element rootReferees = document.createElement(DATA.REFEREES);
             rootOfficials.appendChild(rootReferees);
 
-            for (String refereeName : DATA.officialNames) {
-                Element referee = document.createElement(DATA.REFEREE);
-                rootReferees.appendChild(referee);
-                officials.add(
-                        new Referee(refereeName, 18 + Utilities.random.nextInt(30), DATA.STATE.randomState(), referee)
-                );
+            if (addPersons) {
+                for (String refereeName : DATA.officialNames) {
+                    Element referee = document.createElement(DATA.REFEREE);
+                    rootReferees.appendChild(referee);
+                    officials.add(
+                            new Referee(refereeName, 18 + Utilities.random.nextInt(30), DATA.STATE.randomState(), referee)
+                    );
+                }
             }
+
 
             Element gamesRoot = document.createElement(DATA.GAMES);
             root.appendChild(gamesRoot);
@@ -168,11 +181,11 @@ public final class DocumentHandler {
         return document;
     }
 
-    public static void saveGame(Document document, @Nullable final Window window, File ...files) {
+    public static void saveGame(Document document, @Nullable final Window window, File... files) {
         File file;
-        if(files.length > 0) {
+        if (files.length > 0) {
             file = files[0];
-        } else if(window != null) {
+        } else if (window != null) {
             FileChooser fileChooser = new FileChooser();
             fileChooser.setTitle("Choose an save file");
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
@@ -215,7 +228,7 @@ public final class DocumentHandler {
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML File", "*.xml"));
 
             File loadDirectory = new File(System.getProperty("user.dir") + "\\out\\production\\AssignmentTwoRMITaP");
-            if(loadDirectory.exists() ) {
+            if (loadDirectory.exists()) {
                 fileChooser.setInitialDirectory(loadDirectory);
             }
 
@@ -440,14 +453,14 @@ public final class DocumentHandler {
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element ath = (Element) nodeList.item(i);
                 uuid = ath.getAttributeNode(DATA.UUID);
-                if(uuid != null) {
+                if (uuid != null) {
                     found = true;
                     setAttr(DATA.TIME, time.toString(), ath);
                     break;
                 }
             }
 
-            if(!found) {
+            if (!found) {
                 Element elementA = element.getOwnerDocument().createElement(DATA.ATHLETE);
                 setAttr(DATA.UUID, athlete.getUniqueID().toString(), elementA);
                 setAttr(DATA.TIME, time.toString(), elementA);

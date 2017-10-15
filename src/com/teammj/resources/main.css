@@ -35,6 +35,8 @@
 .root {
     -fx-font-family: Roboto;
     src: "/roboto/Roboto-Regular.ttf";
+    -fx-background-color: light-background;
+    -fx-text-fill: primary-text-color;
 }
 
 #root {
@@ -43,6 +45,11 @@
     -fx-background-color: light-background;
     -fx-text-fill: primary-text-color;
 }
+
+#tblviewgames:hover {
+    -fx-cursor: hand;
+}
+
 
 /*********************
     ToolBar

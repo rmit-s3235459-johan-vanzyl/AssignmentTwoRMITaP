@@ -101,4 +101,9 @@ public final class CyclingGame implements Game {
         return count - 2;
     }
 
+    @Override
+    public void setCount(Integer i) {
+        count = i;
+    }
+
 }

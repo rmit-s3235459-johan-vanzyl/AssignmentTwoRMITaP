@@ -93,4 +93,9 @@ public final class SprintGame implements Game {
     public Integer getCount() {
         return count - 2;
     }
+
+    @Override
+    public void setCount(Integer i) {
+        count = i;
+    }
 }
