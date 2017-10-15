@@ -517,4 +517,16 @@ public final class DocumentHandler {
             return null;
         }
     }
+
+    static Element addReferee(final Document document) {
+        try {
+            Element root = (Element) document.getElementsByTagName(DATA.REFEREES).item(0);
+            Element referee = document.createElement(DATA.REFEREE);
+            root.appendChild(referee);
+            return referee;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

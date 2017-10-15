@@ -103,6 +103,25 @@
                             </ComboBox>
                             <Button text="Add Athlete" fx:id="addAthlete" onMouseClicked="#addNewAthlete"/>
                             <Label fx:id="addAfeedBack"/>
+                            <Label styleClass="header">
+                                Add Referee
+                            </Label>
+                            <TextField promptText="Name" fx:id="txtFieldRName"/>
+                            <TextField promptText="Age" fx:id="txtFieldRAge"/>
+                            <ComboBox fx:id="cmbRState" promptText="State">
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="NSW" />
+                                        <String fx:value="QLD" />
+                                        <String fx:value="SA" />
+                                        <String fx:value="TAS" />
+                                        <String fx:value="VIC" />
+                                        <String fx:value="WA" />
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+                            <Button text="Add Referee" fx:id="addReferee" onMouseClicked="#addNewReferee"/>
+                            <Label fx:id="addRfeedBack"/>
                         </VBox>
                     </HBox>
                 </VBox>

@@ -54,6 +54,11 @@ public class Main implements Initializable {
     public ComboBox cmbAState;
     public Button addAthlete;
     public Label addAfeedBack;
+    public TextField txtFieldRAge;
+    public TextField txtFieldRName;
+    public ComboBox cmbRState;
+    public Label addRfeedBack;
+    public Button addReferee;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -87,6 +92,29 @@ public class Main implements Initializable {
                     txtFieldAAge.setText("");
                 } else {
                     addAfeedBack.setText("");
+                }
+            }
+        });
+
+        txtFieldRName.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (!txtFieldRName.getText().matches(DATA.FULL_NAME)) {
+                    addRfeedBack.setText("Wrong name input");
+                    txtFieldRName.setText("");
+                } else {
+                    addRfeedBack.setText("");
+                }
+            }
+
+        });
+
+        txtFieldRAge.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue) {
+                if (!txtFieldRAge.getText().matches(DATA.POSTIVE_INTEGER_ONE_TO_NINE)) {
+                    addRfeedBack.setText("Wrong age input");
+                    txtFieldRAge.setText("");
+                } else {
+                    addRfeedBack.setText("");
                 }
             }
         });
@@ -337,6 +365,61 @@ public class Main implements Initializable {
                 persons.add(athlete);
                 athletes.add(athlete);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void addNewReferee() {
+        try {
+            if(txtFieldRAge.getText().length() < 1) {
+                addRfeedBack.setText("Please input age.");
+                return;
+            }
+            if(txtFieldRName.getText().length() < 3) {
+                addRfeedBack.setText("Please enter name.");
+                return;
+            }
+
+            String sState = (String) cmbRState.getValue();
+            if(sState == null) {
+                addRfeedBack.setText("Please select state");
+                return;
+            }
+
+            Integer age = Integer.valueOf(txtFieldRAge.getText());
+            String name = txtFieldRName.getText();
+            DATA.STATE stateType;
+
+            switch (sState) {
+                case "NSW":
+                    stateType = DATA.STATE.NSW;
+                    break;
+                case "QLD":
+                    stateType = DATA.STATE.QLD;
+                    break;
+                case "SA":
+                    stateType = DATA.STATE.SA;
+                    break;
+                case "TAS":
+                    stateType = DATA.STATE.TAS;
+                    break;
+                case "VIC":
+                    stateType = DATA.STATE.VIC;
+                    break;
+                case "WA":
+                    stateType = DATA.STATE.WA;
+                    break;
+                default:
+                    addRfeedBack.setText("Please select state");
+                    return;
+            }
+            addRfeedBack.setText("");
+
+            Element element = DocumentHandler.addReferee(document);
+            if(element == null) return;
+            Referee referee = new Referee(name, age, stateType, element);
+            persons.add(referee);
         } catch (Exception e) {
             e.printStackTrace();
         }
