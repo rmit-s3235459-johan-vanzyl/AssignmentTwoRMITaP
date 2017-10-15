@@ -88,7 +88,7 @@ public interface DATA {
     String ATHLETES = "persons";
     String OFFICIALS = "officials";
     String REFEREES = "referees";
-    String REFEREE = "Referee";
+    String REFEREE = "referee";
 
     String UUID = "UUID";
     String NAME = "name";

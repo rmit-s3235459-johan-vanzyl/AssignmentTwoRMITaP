@@ -82,17 +82,19 @@ public class Main implements Initializable {
 
         tblViewGames.setItems(games);
         tblViewGames.getColumns().addAll(gameType, gameCount);
-        tblViewGames.setOnMouseClicked(event -> fillInGameMap(tblViewGames.getSelectionModel().getSelectedItem()));
+        tblViewGames.setOnMouseClicked(event -> {
+            if(tblViewGames.getSelectionModel().getSelectedItem() != null) {
+                fillInGameMap(tblViewGames.getSelectionModel().getSelectedItem());
+            }
 
+        });
     }
 
     private void fillInGameMap(Game selectedItem) {
         athleteGameMap.removeAll();
         tblViewGame.getItems().clear();
         HashMap<Athlete, Integer> map = (HashMap<Athlete, Integer>) selectedItem.getAthleteTimes();
-        map.forEach((a, i) -> {
-            athleteGameMap.add(new AthleteMap(a.getName(), i, a.getPoints()));
-        });
+        map.forEach((a, i) -> athleteGameMap.add(new AthleteMap(a.getName(), i, a.getPoints())));
     }
 
     private void setupPersonsTable() {
@@ -138,23 +140,8 @@ public class Main implements Initializable {
         persons.addAll(athletes);
         persons.addAll(officials);
 
-        for (Athlete a : athletes) {
-            System.out.println(a.getUniqueID().toString());
-        }
+        officials.forEach(official -> System.out.println(official.getName()));
 
-        for(Game game : games) {
-            System.out.println(game.getUniqueID());
-            Map<Athlete, Integer> athleteIntegerMap = game.getAthleteTimes();
-            athleteIntegerMap.forEach((K,V) -> {
-                System.out.println(K.getUniqueID());
-                System.out.println(V);
-                if(K instanceof Cyclist) {
-                    System.out.println("Is Cyclist");
-                } else if(K instanceof Swimmer) {
-                    System.out.println("Is Swimmer");
-                }
-            });
-        }
     }
 
 
@@ -177,6 +164,8 @@ public class Main implements Initializable {
     }
 
     public void saveFile() {
+        if(document == null) return;
+        DocumentHandler.saveGame(document, Ozlympic.getCurrentStage());
     }
 
     public class AthleteMap {
@@ -184,7 +173,7 @@ public class Main implements Initializable {
         private Integer athleteTime;
         private Integer athletePoints;
 
-        public AthleteMap(String athleteName, Integer athleteTime, Integer athletePoints) {
+        AthleteMap(String athleteName, Integer athleteTime, Integer athletePoints) {
             this.athleteName = athleteName;
             this.athleteTime = athleteTime;
             this.athletePoints = athletePoints;

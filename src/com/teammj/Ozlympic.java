@@ -30,10 +30,6 @@ public class Ozlympic extends Application {
     public void start(Stage primaryStage) throws Exception {
         currentStage = primaryStage;
         createStage();
-        handleQuitCatch();
-    }
-
-    private void handleQuitCatch() {
         currentStage.setOnCloseRequest(event -> Main.escape());
     }
 
