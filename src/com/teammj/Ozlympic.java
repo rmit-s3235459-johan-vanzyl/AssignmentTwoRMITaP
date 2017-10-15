@@ -54,7 +54,6 @@ public class Ozlympic extends Application {
         }
     }
 
-
     /**
      * Possibly redundant for project
      * @return the current stage

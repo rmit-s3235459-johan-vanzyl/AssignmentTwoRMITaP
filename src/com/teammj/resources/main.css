@@ -39,6 +39,11 @@
 .c-tool-bar Label {
     -fx-text-fill: WHITE;
 }
+
+.c-tool-bar ImageView:hover {
+    -fx-opacity: 0.3;
+    -fx-cursor: hand;
+}
 /*****************************
 ******************************
- */
+*/
