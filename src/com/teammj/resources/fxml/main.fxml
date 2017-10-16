@@ -4,9 +4,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Label?>
 
-<?import com.teammj.view.components.*?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -21,53 +18,7 @@
     <children>
         <BorderPane>
             <top>
-                <ToolBar prefWidth="${root.width}">
-                    <leftItems>
-
-                        <VBox fx:id="loadVbox">
-                            <ImageView>
-                                <image>
-                                    <Image url="icons/open-folder.png"/>
-                                </image>
-                            </ImageView>
-                            <Label style="-fx-padding: 0 0 0 5">
-                                Load
-                            </Label>
-                        </VBox>
-                        <VBox onMouseClicked="#saveFile">
-                            <ImageView>
-                                <image>
-                                    <Image url="icons/save-file-option.png"/>
-                                </image>
-                            </ImageView>
-                            <Label style="-fx-padding: 0 0 0 8">
-                                Save
-                            </Label>
-                        </VBox>
-                    </leftItems>
-                    <rightItems>
-                        <VBox onMouseClicked="#generateSaveFile">
-                            <ImageView>
-                                <image>
-                                    <Image url="icons/settings-gears.png"/>
-                                </image>
-                            </ImageView>
-                            <Label>
-                                Generate
-                            </Label>
-                        </VBox>
-                        <VBox onMouseClicked="#exit">
-                            <ImageView>
-                                <image>
-                                    <Image url="icons/exit.png"/>
-                                </image>
-                            </ImageView>
-                            <Label style="-fx-padding: 0 0 0 8">
-                                Exit
-                            </Label>
-                        </VBox>
-                    </rightItems>
-                </ToolBar>
+                <fx:include source="toolbar.fxml" fx:id="menubar"/>
             </top>
             <left>
                 <VBox styleClass="border-property-left" style="-fx-padding: 0 5px 0 0">
@@ -174,7 +125,8 @@
                     </VBox>
                     <VBox style="-fx-padding: 0 0 0 15px">
                         <Pane style="-fx-padding: 15px 0 0 0">
-                            <Button styleClass="title" prefHeight="80" disable="true" fx:id="startRaceBtn" onMouseClicked="#startRace">
+                            <Button styleClass="title" prefHeight="80" disable="true" fx:id="startRaceBtn"
+                                    onMouseClicked="#startRace">
                                 START RACE!!!
                             </Button>
                         </Pane>

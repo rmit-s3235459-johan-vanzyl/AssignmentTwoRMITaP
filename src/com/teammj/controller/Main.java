@@ -10,15 +10,13 @@ import com.teammj.model.persons.*;
 import com.teammj.model.persons.base.Athlete;
 import com.teammj.model.persons.base.Official;
 import com.teammj.model.persons.base.Person;
+import com.teammj.view.components.ToolBar;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -28,11 +26,9 @@ import javafx.scene.input.*;
 import javafx.scene.layout.AnchorPane;
 
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import javax.swing.plaf.nimbus.State;
 import java.io.File;
 import java.net.URL;
 import java.util.*;
@@ -40,15 +36,14 @@ import java.util.*;
 public class Main implements Initializable {
 
     private static Document document;
-    private static final ObservableList<Athlete> athletes = FXCollections.observableArrayList();
-    private static final ObservableList<Official> officials = FXCollections.observableArrayList();
-    private static final ObservableList<Person> persons = FXCollections.observableArrayList();
-    private static final ObservableList<Competitor> gamePersons = FXCollections.observableArrayList();
-    private static final ObservableList<Game> games = FXCollections.observableArrayList();
-    private static final ObservableList<AthleteMap> athleteGameMap = FXCollections.observableArrayList();
+    static final ObservableList<Athlete> athletes = FXCollections.observableArrayList();
+    static final ObservableList<Official> officials = FXCollections.observableArrayList();
+    static final ObservableList<Person> persons = FXCollections.observableArrayList();
+    static final ObservableList<Competitor> gamePersons = FXCollections.observableArrayList();
+    static final ObservableList<Game> games = FXCollections.observableArrayList();
+    static final ObservableList<AthleteMap> athleteGameMap = FXCollections.observableArrayList();
 
     public AnchorPane root;
-    public VBox loadVbox;
     public TableView<Person> tblViewPersons;
     public AnchorPane centerPane;
     public TableView<Game> tblviewgames;
@@ -73,7 +68,7 @@ public class Main implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        loadVbox.setOnMouseClicked(event -> loadFromFile());
+        //loadVbox.setOnMouseClicked(event -> loadFromFile());
         setupPersonsTable();
         setupGamesTable();
         setupGameTable();
@@ -82,6 +77,7 @@ public class Main implements Initializable {
         setupValidators();
 
         generateDocument();
+
     }
 
     private void setupValidators() {
@@ -406,44 +402,6 @@ public class Main implements Initializable {
 
     public static void loadFromFile(String... args) {
 
-        athletes.clear();
-        officials.clear();
-
-        games.forEach(game -> game.setCount(1));
-
-        games.clear();
-
-        if (args.length > 0) {
-            File file = new File(args[0]);
-            System.out.println(file);
-            if (!file.exists()) {
-                System.err.println("Specified load file does not exist");
-                System.exit(1);
-            }
-            document = DocumentHandler.loadFromSavedFile(
-                    null,
-                    athletes,
-                    officials,
-                    games,
-                    file
-            );
-        } else {
-            document = DocumentHandler.loadFromSavedFile(
-                    Ozlympic.getCurrentStage(),
-                    athletes,
-                    officials,
-                    games
-            );
-        }
-
-        persons.addAll(athletes);
-        persons.addAll(officials);
-        officials.forEach(official -> System.out.println(official.getName()));
-
-    }
-
-    public void exit() {
-        escape();
     }
 
     public static void escape() {
@@ -458,11 +416,6 @@ public class Main implements Initializable {
 
     public static Document getDocument() {
         return document;
-    }
-
-    public void saveFile() {
-        if (document == null) return;
-        DocumentHandler.saveGame(document, Ozlympic.getCurrentStage());
     }
 
     public void addNewAthlete() {
@@ -731,4 +684,10 @@ public class Main implements Initializable {
             return person;
         }
     }
+
+    public static void setDocument(Document document) {
+        Main.document = document;
+    }
+
+
 }
