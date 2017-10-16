@@ -27,7 +27,7 @@
             <Button onMouseClicked="#clearPlayerTbl">Clear</Button>
         </HBox>
 
-        <TableView fx:id="tblGameParticipants"/>
+        <TableView fx:id="tblGameParticipants" prefHeight="115"/>
         <Label fx:id="addPfeedback">
             Drag Persons in Here!
         </Label>

@@ -6,6 +6,7 @@ import com.teammj.model.games.Game;
 import com.teammj.model.games.SprintGame;
 import com.teammj.model.games.SwimmingGame;
 import com.teammj.model.persons.Competitor;
+import com.teammj.model.persons.Referee;
 import com.teammj.model.persons.base.Athlete;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -61,17 +62,21 @@ final public class BottomPane implements Initializable{
         }
         Map<Athlete, Integer> athleteTimes = new HashMap<>(gamePersons.size() - 1);
         Map<Athlete, Integer> finalAthleteTimes = athleteTimes;
+        final Referee[] referee = new Referee[1];
         gamePersons.forEach(competitor -> {
             if(competitor.getPersonType() != DATA.PERSON_TYPE.Referee) {
                 Athlete athlete = (Athlete) competitor.getPerson();
                 int time = athlete.compete(game);
                 finalAthleteTimes.put(athlete, time);
                 if(competitor.isPredictedWinner()) predictedWinner[0] = (Athlete) competitor.getPerson();
+            } else {
+                referee[0] = (Referee) competitor.getPerson();
             }
             game.addParticipant(competitor.getPerson());
         });
 
         athleteTimes = Utilities.sortMapByValue(finalAthleteTimes);
+        referee[0].printAthleteTimes(athleteTimes);
 
         // Get the winner
         Athlete winner = athleteTimes.keySet().iterator().next();
@@ -231,7 +236,12 @@ final public class BottomPane implements Initializable{
         final Integer[] count = {0};
         gamePersons.forEach(competitor -> {
             if (competitor.getPersonType() == DATA.PERSON_TYPE.Referee) {
-                competitor.setPredictedWinner(false);
+                if(competitor.isPredictedWinner()) {
+                    competitor.setPredictedWinner(false);
+                    addPfeedback.setText("Referee cannot be the predicted winner!");
+                    addPfeedback.getStyleClass().add("warning");
+                    gameNotif("Drag Persons in Here!");
+                }
             } else {
                 if (competitor.isPredictedWinner()) {
                     if (count[0] > 0) competitor.setPredictedWinner(false);

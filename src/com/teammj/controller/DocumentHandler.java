@@ -304,6 +304,7 @@ public final class DocumentHandler {
             case "WA":
                 state = DATA.STATE.WA;
                 break;
+
         }
         return state;
     }

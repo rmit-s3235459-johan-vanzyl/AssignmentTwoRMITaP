@@ -8,7 +8,7 @@ final public class AthleteMap {
     private Integer athleteTime;
     private Integer athletePoints;
 
-    AthleteMap(String athleteName, Integer athleteTime, Integer athletePoints) {
+    public AthleteMap(String athleteName, Integer athleteTime, Integer athletePoints) {
         this.athleteName = athleteName;
         this.athleteTime = athleteTime;
         this.athletePoints = athletePoints;

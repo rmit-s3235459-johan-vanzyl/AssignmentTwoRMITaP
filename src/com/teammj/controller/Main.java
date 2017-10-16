@@ -32,7 +32,6 @@ final public class Main implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
         generateDocument();
     }
 

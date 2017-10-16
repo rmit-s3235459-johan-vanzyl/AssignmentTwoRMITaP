@@ -27,7 +27,7 @@ public final class Referee extends Official {
      * Displays game results and gives
      * out points to top 3 placers
      */
-    public void printAthleteTimes(Map<Athlete, Integer> times) throws InterruptedException {
+    public void printAthleteTimes(Map<Athlete, Integer> times)  {
         System.out.println("\nThe athlete times are");
         int athletePosition = 1;
         Athlete winner;
@@ -36,20 +36,18 @@ public final class Referee extends Official {
             switch (athletePosition){
                 case 1:
                     winner = entry.getKey();
-                    winner.setPoints(5);
+                    winner.addPoints(5);
                     break;
                 case 2:
-                    entry.getKey().setPoints(2);
+                    entry.getKey().addPoints(2);
                     break;
                 case 3:
-                    entry.getKey().setPoints(1);
+                    entry.getKey().addPoints(1);
                     break;
             }
 
             athletePosition++;
-            Thread.sleep(300);
         }
-
     }
 
     /**
