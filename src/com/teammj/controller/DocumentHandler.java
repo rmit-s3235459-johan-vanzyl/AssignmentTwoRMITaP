@@ -283,7 +283,7 @@ public final class DocumentHandler {
         return document;
     }
 
-    private static DATA.STATE parseState(String state_s) {
+    public static DATA.STATE parseState(String state_s) {
         DATA.STATE state = null;
         switch (state_s) {
             case "NSW":
@@ -304,7 +304,6 @@ public final class DocumentHandler {
             case "WA":
                 state = DATA.STATE.WA;
                 break;
-
         }
         return state;
     }

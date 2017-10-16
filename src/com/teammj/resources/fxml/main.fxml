@@ -5,9 +5,6 @@
 <?import javafx.scene.control.Label?>
 
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
@@ -18,65 +15,10 @@
     <children>
         <BorderPane>
             <top>
-                <fx:include source="toolbar.fxml" fx:id="menubar"/>
+                <fx:include source="toolbar.fxml"/>
             </top>
             <left>
-                <VBox styleClass="border-property-left" style="-fx-padding: 0 5px 0 0">
-                    <Label styleClass="subhead" alignment="CENTER">
-                        Persons
-                    </Label>
-                    <HBox>
-                        <TableView fx:id="tblViewPersons" prefHeight="${root.height - 350}" maxWidth="330"/>
-                        <VBox styleClass="border-property-inner-left">
-                            <Label styleClass="header">
-                                Add Athlete
-                            </Label>
-                            <RadioButton selected="true" text="Cyclist">
-                                <toggleGroup>
-                                    <ToggleGroup fx:id="toggleGroup"/>
-                                </toggleGroup>
-                            </RadioButton>
-                            <RadioButton text="Sprinter" toggleGroup="$toggleGroup"/>
-                            <RadioButton text="Swimmer" toggleGroup="$toggleGroup"/>
-                            <RadioButton text="SuperAthlete" toggleGroup="$toggleGroup"/>
-                            <TextField promptText="Name" fx:id="txtFieldAName"/>
-                            <TextField promptText="Age" fx:id="txtFieldAAge"/>
-                            <ComboBox fx:id="cmbAState" promptText="State">
-                                <items>
-                                    <FXCollections fx:factory="observableArrayList">
-                                        <String fx:value="NSW"/>
-                                        <String fx:value="QLD"/>
-                                        <String fx:value="SA"/>
-                                        <String fx:value="TAS"/>
-                                        <String fx:value="VIC"/>
-                                        <String fx:value="WA"/>
-                                    </FXCollections>
-                                </items>
-                            </ComboBox>
-                            <Button text="Add Athlete" fx:id="addAthlete" onMouseClicked="#addNewAthlete"/>
-                            <Label fx:id="addAfeedBack" styleClass="warning"/>
-                            <Label styleClass="header">
-                                Add Referee
-                            </Label>
-                            <TextField promptText="Name" fx:id="txtFieldRName"/>
-                            <TextField promptText="Age" fx:id="txtFieldRAge"/>
-                            <ComboBox fx:id="cmbRState" promptText="State">
-                                <items>
-                                    <FXCollections fx:factory="observableArrayList">
-                                        <String fx:value="NSW"/>
-                                        <String fx:value="QLD"/>
-                                        <String fx:value="SA"/>
-                                        <String fx:value="TAS"/>
-                                        <String fx:value="VIC"/>
-                                        <String fx:value="WA"/>
-                                    </FXCollections>
-                                </items>
-                            </ComboBox>
-                            <Button text="Add Referee" fx:id="addReferee" onMouseClicked="#addNewReferee"/>
-                            <Label fx:id="addRfeedBack" styleClass="warning"/>
-                        </VBox>
-                    </HBox>
-                </VBox>
+                <fx:include source="lhs.fxml"/>
             </left>
             <center>
                 <AnchorPane fx:id="centerPane" styleClass="border-property-center">

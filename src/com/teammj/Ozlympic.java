@@ -1,6 +1,7 @@
 package com.teammj;
 
 import com.teammj.controller.Main;
+import com.teammj.controller.Toolbar;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
@@ -36,7 +37,7 @@ public class Ozlympic extends Application {
     // Main entry point
     public static void main(String[] args) {
         if(args.length > 0) {
-            Main.loadFromFile(args[0]);
+            Toolbar.loadFile(args[0]);
         }
         launch(args);
     }

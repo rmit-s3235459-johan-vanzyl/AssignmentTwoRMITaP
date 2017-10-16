@@ -8,14 +8,13 @@
 <?import javafx.scene.control.Label?>
 <ToolBar xmlns="http://javafx.com/javafx"
          xmlns:fx="http://javafx.com/fxml"
-         fx:controller="com.teammj.controller.Toolbar">
+         fx:controller="com.teammj.controller.Toolbar"
+         fx:id="rootTB">
     <leftItems>
 
         <VBox fx:id="loader">
             <ImageView>
-                <image>
-                    <Image url="/icons/open-folder.png"/>
-                </image>
+                <Image url="/icons/open-folder.png"/>
             </ImageView>
             <Label style="-fx-padding: 0 0 0 5">
                 Load
@@ -23,9 +22,7 @@
         </VBox>
         <VBox onMouseClicked="#saveFile">
             <ImageView>
-                <image>
-                    <Image url="/icons/save-file-option.png"/>
-                </image>
+                <Image url="/icons/save-file-option.png"/>
             </ImageView>
             <Label style="-fx-padding: 0 0 0 8">
                 Save
@@ -35,9 +32,7 @@
     <rightItems>
         <VBox onMouseClicked="#generateSaveFile">
             <ImageView>
-                <image>
-                    <Image url="/icons/settings-gears.png"/>
-                </image>
+                <Image url="/icons/settings-gears.png"/>
             </ImageView>
             <Label>
                 Generate
@@ -45,9 +40,7 @@
         </VBox>
         <VBox onMouseClicked="#exit">
             <ImageView>
-                <image>
-                    <Image url="/icons/exit.png"/>
-                </image>
+                <Image url="/icons/exit.png"/>
             </ImageView>
             <Label style="-fx-padding: 0 0 0 8">
                 Exit

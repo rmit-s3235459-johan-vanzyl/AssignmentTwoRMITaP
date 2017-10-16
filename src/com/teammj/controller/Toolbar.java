@@ -1,6 +1,7 @@
 package com.teammj.controller;
 
 import com.teammj.Ozlympic;
+import com.teammj.view.components.ToolBar;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
@@ -16,6 +17,7 @@ import static com.teammj.controller.Main.persons;
 
 public class Toolbar implements Initializable{
     public VBox loader;
+    public ToolBar rootTB;
 
     public void saveFile() {
         if (Main.getDocument() == null) return;
@@ -37,9 +39,11 @@ public class Toolbar implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         loader.setOnMouseClicked(event -> loadFile());
+        rootTB.prefWidthProperty().bind(Ozlympic.getCurrentStage().widthProperty());
+        rootTB.maxWidthProperty().bind(Ozlympic.getCurrentStage().widthProperty());
     }
 
-    public void loadFile(String... args) {
+    public static void loadFile(String... args) {
         athletes.clear();
         officials.clear();
         games.forEach(game -> game.setCount(1));
