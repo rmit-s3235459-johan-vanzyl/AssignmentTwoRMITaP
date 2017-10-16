@@ -68,6 +68,8 @@ public final class DocumentHandler {
                     );
                 }
                 return null;
+            } else {
+                Main.firstLaunch = true;
             }
         }
 

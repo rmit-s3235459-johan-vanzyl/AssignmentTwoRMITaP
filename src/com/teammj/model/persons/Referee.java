@@ -28,13 +28,10 @@ public final class Referee extends Official {
     public void printAthleteTimes(Map<Athlete, Integer> times)  {
         System.out.println("\nThe athlete times are");
         int athletePosition = 1;
-        Athlete winner;
         for (Map.Entry<Athlete, Integer> entry : times.entrySet()){
-            System.out.println(entry.getValue() + " seconds for " + entry.getKey().getName());
             switch (athletePosition){
                 case 1:
-                    winner = entry.getKey();
-                    winner.addPoints(5);
+                    entry.getKey().addPoints(5);
                     break;
                 case 2:
                     entry.getKey().addPoints(2);

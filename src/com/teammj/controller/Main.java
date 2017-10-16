@@ -10,6 +10,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 
 import org.w3c.dom.Document;
@@ -29,10 +30,37 @@ final public class Main implements Initializable {
     static final ObservableList<AthleteMap> athleteGameMap = FXCollections.observableArrayList();
 
     public AnchorPane root;
+    public static boolean firstLaunch = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        checkFirstTimeLaunch();
         generateDocument();
+    }
+
+    private void checkFirstTimeLaunch() {
+        new Thread(() -> {
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            if(firstLaunch) {
+                Platform.runLater(() -> {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("First Time Launch");
+                    alert.setHeaderText("Welcome!");
+                    alert.setContentText("For the first launch, we recommend to press Generate button or load the sample 'SaveFile.xml'. Game is automatically saved as 'AutoSave.xml' after exit.");
+                    alert.showAndWait();
+
+                    alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("First Time Launch");
+                    alert.setHeaderText("...Just another one");
+                    alert.setContentText("Drag and drop athletes and referee from persons table to the new game table to create a game.");
+                    alert.showAndWait();
+                });
+            }
+        }).start();
     }
 
     private void generateDocument() {

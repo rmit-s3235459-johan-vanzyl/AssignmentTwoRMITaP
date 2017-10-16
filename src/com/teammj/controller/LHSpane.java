@@ -39,13 +39,24 @@ final public class LHSpane implements Initializable {
     public Label addRfeedBack;
     public VBox rootLHS;
 
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupPersonsTable();
         setupValidators();
+        createTooltips();
         tblViewPersons.prefHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(DATA.HEIGHT_FROM_BOTTOM));
         tblViewPersons.maxHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(DATA.HEIGHT_FROM_BOTTOM));
+    }
+
+    private void createTooltips() {
+        addAthlete.setTooltip(new Tooltip("Press to add new Athlete"));
+        addReferee.setTooltip(new Tooltip("Press to add new Referee"));
+        cmbAState.setTooltip(new Tooltip("Select Athletes state"));
+        cmbRState.setTooltip(new Tooltip("Select Referees state"));
+        txtFieldAName.setTooltip(new Tooltip("Enter Athletes name"));
+        txtFieldAAge.setTooltip(new Tooltip("Enter Athletes age"));
+        txtFieldRName.setTooltip(new Tooltip("Enter Referees name"));
+        txtFieldRAge.setTooltip(new Tooltip("Enter Referees age"));
     }
 
     /**

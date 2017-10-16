@@ -3,39 +3,17 @@
     <persons>
         <persons>
             <swimmers/>
-            <sprinters>
-                <sprinter UUID="deb96d29-b0f7-4be4-b7e7-d7de74ee34b0" age="27" name="saaa@@" points="0" state="QLD"/>
-                <sprinter UUID="afd1770b-ef78-47db-948d-bd3359ad1bc7" age="27" name="Dffee" points="2" state="QLD"/>
-                <sprinter UUID="3ab81e22-f332-4e5c-b3c3-6725b91704b6" age="27" name="DffeeA" points="1" state="QLD"/>
-            </sprinters>
-            <cyclists>
-                <cyclist UUID="a78a9f36-e82b-4800-ac62-9e09aa62d36c" age="27" name="ASDfff" points="0" state="QLD"/>
-            </cyclists>
-            <superAthletes>
-                <superAthlete UUID="e44ad79b-58b1-4e6b-b985-66e83b67bb19" age="27" name="Johanvz" points="5" state="QLD"/>
-            </superAthletes>
+            <sprinters/>
+            <cyclists/>
+            <superAthletes/>
         </persons>
         <officials>
-            <referees>
-                <referee UUID="61f07a98-6cb5-4ba2-b474-375c0a7b7bff" age="44" name="dffsee" state="TAS"/>
-            </referees>
+            <referees/>
         </officials>
     </persons>
     <games>
         <swimming/>
-        <sprinting>
-            <game beenRan="true" uniqueID="R01">
-                <person UUID="e44ad79b-58b1-4e6b-b985-66e83b67bb19"/>
-                <person UUID="afd1770b-ef78-47db-948d-bd3359ad1bc7"/>
-                <person UUID="3ab81e22-f332-4e5c-b3c3-6725b91704b6"/>
-                <person UUID="61f07a98-6cb5-4ba2-b474-375c0a7b7bff"/>
-                <person UUID="deb96d29-b0f7-4be4-b7e7-d7de74ee34b0"/>
-                <athlete UUID="e44ad79b-58b1-4e6b-b985-66e83b67bb19" time="10"/>
-                <athlete UUID="afd1770b-ef78-47db-948d-bd3359ad1bc7" time="12"/>
-                <athlete UUID="3ab81e22-f332-4e5c-b3c3-6725b91704b6" time="13"/>
-                <athlete UUID="deb96d29-b0f7-4be4-b7e7-d7de74ee34b0" time="14"/>
-            </game>
-        </sprinting>
+        <sprinting/>
         <cycling/>
     </games>
 </ozlympics>

@@ -11,7 +11,6 @@
          fx:controller="com.teammj.controller.ToolbarPane"
          fx:id="rootTB">
     <leftItems>
-
         <VBox fx:id="loader">
             <ImageView>
                 <Image url="/icons/open-folder.png"/>

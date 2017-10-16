@@ -6,13 +6,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 
 /**
- * Note
- * Normally all of these inner classes would be in a package
- * However, due to the requirements, we stuck them all in this class.
- *
- * Please use code folding to make navigation easier (if so desired)
+ * Custom javafx component for a toolbar with RHS and LHS components
+ * @author Johan van Zyl
+ * @author Michael Guida
  */
-
 public class ToolBar extends BorderPane{
     private HBox leftBox = new HBox();
     private HBox rightBox = new HBox();
