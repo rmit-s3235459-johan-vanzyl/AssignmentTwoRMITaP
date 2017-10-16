@@ -20,7 +20,7 @@ import java.util.*;
 
 final public class Main implements Initializable {
 
-    private static Document document;
+    private static Document document = null;
     static final ObservableList<Athlete> athletes = FXCollections.observableArrayList();
     static final ObservableList<Official> officials = FXCollections.observableArrayList();
     static final ObservableList<Person> persons = FXCollections.observableArrayList();

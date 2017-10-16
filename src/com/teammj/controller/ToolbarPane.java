@@ -10,10 +10,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static com.teammj.controller.Main.games;
-import static com.teammj.controller.Main.athletes;
-import static com.teammj.controller.Main.officials;
-import static com.teammj.controller.Main.persons;
+import static com.teammj.controller.Main.*;
 
 final public class ToolbarPane implements Initializable{
     public VBox loader;
@@ -46,6 +43,10 @@ final public class ToolbarPane implements Initializable{
     public static void loadFile(String... args) {
         athletes.clear();
         officials.clear();
+        persons.clear();
+        gamePersons.clear();
+        athleteGameMap.clear();
+
         games.forEach(game -> game.setCount(1));
         games.clear();
 
@@ -77,6 +78,5 @@ final public class ToolbarPane implements Initializable{
 
         persons.addAll(athletes);
         persons.addAll(officials);
-        officials.forEach(official -> System.out.println(official.getName()));
     }
 }

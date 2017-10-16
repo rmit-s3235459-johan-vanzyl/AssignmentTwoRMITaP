@@ -14,10 +14,7 @@ import com.teammj.model.persons.base.Person;
 import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -445,28 +442,32 @@ public final class DocumentHandler {
         return athletes;
     }
 
-    public static void updateAthleteMap(Map<Athlete, Integer> athleteTimes, Element element) {
-        athleteTimes.forEach((athlete, time) -> {
+    public static void updateAthleteMap(Map<Athlete, Integer> athleteTimes, final Element element) {
+
+        for (Map.Entry<Athlete, Integer> entry : athleteTimes.entrySet()) {
+            Integer time = entry.getValue();
+            Athlete athlete = entry.getKey();
             NodeList nodeList = element.getElementsByTagName(DATA.ATHLETE);
-            Attr uuid;
             boolean found = false;
-            for (int i = 0; i < nodeList.getLength(); i++) {
+            for (int i = 0; i < nodeList.getLength() && !found; i++) {
+                found = false;
                 Element ath = (Element) nodeList.item(i);
-                uuid = ath.getAttributeNode(DATA.UUID);
+                String uuid = ath.getAttributeNode(DATA.UUID).getValue();
                 if (uuid != null) {
-                    found = true;
-                    setAttr(DATA.TIME, time.toString(), ath);
-                    break;
+                    if(Objects.equals(uuid, athlete.getUniqueID().toString())) {
+                        found = true;
+                        setAttr(DATA.TIME, time.toString(), ath);
+                    }
                 }
             }
-
             if (!found) {
+                System.out.println("Created element for time " + time);
                 Element elementA = element.getOwnerDocument().createElement(DATA.ATHLETE);
                 setAttr(DATA.UUID, athlete.getUniqueID().toString(), elementA);
                 setAttr(DATA.TIME, time.toString(), elementA);
                 element.appendChild(elementA);
             }
-        });
+        }
     }
 
     static Element addCyclist(final Document document) {
