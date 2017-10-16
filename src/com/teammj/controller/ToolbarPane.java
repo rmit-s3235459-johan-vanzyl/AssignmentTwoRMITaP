@@ -3,6 +3,7 @@ package com.teammj.controller;
 import com.teammj.Ozlympic;
 import com.teammj.view.components.ToolBar;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Document;
 
@@ -18,6 +19,8 @@ import static com.teammj.controller.Main.persons;
 final public class ToolbarPane implements Initializable{
     public VBox loader;
     public ToolBar rootTB;
+
+
 
     public void saveFile() {
         if (Main.getDocument() == null) return;
