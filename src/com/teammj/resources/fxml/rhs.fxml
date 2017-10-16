@@ -5,9 +5,12 @@
 
 <VBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            styleClass="border-property-right"
-            fx:controller="com.teammj.controller.RHSpane">
-    <Label styleClass="subhead" alignment="CENTER">
+            fx:controller="com.teammj.controller.RHSpane"
+            styleClass="rhsBorder"
+            fx:id="rhsRoot">
+
+    <Label styleClass="subhead" alignment="CENTER"
+    maxWidth="${rhsRoot.width}">
         Athlete's Rank
     </Label>
     <TableView fx:id="tblViewAthletesRank"/>

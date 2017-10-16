@@ -18,8 +18,6 @@ public final class Cyclist extends Athlete {
 
     public Cyclist(String name, int age, DATA.STATE fromState, Element element,  UUID...uuids) {
         super(name, age, fromState, element, DATA.PERSON_TYPE.Cyclist, uuids);
-        System.out.printf("Hello, my name is %s and I am %d years old. " +
-                "I am also a Cyclist.\n", name, age);
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.teammj.controller;
 
 import com.teammj.Ozlympic;
+import com.teammj.model.DATA;
 import com.teammj.model.persons.base.Athlete;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
@@ -18,8 +19,8 @@ final public class RHSpane implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupAthletesRank();
-        tblViewAthletesRank.prefHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(350));
-        tblViewAthletesRank.maxHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(350));
+        tblViewAthletesRank.prefHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(DATA.HEIGHT_FROM_BOTTOM));
+        tblViewAthletesRank.maxHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(DATA.HEIGHT_FROM_BOTTOM));
     }
 
     private void setupAthletesRank() {

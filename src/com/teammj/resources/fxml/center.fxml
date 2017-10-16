@@ -5,10 +5,10 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            styleClass="border-property-center"
-            fx:controller="com.teammj.controller.CenterPane">
+            fx:controller="com.teammj.controller.CenterPane"
+            fx:id="centerRoot">
     <VBox>
-        <Label styleClass="subhead" alignment="CENTER">
+        <Label styleClass="subhead" alignment="CENTER" maxWidth="${centerRoot.width}">
             Past Games
         </Label>
         <HBox styleClass="border-property-center">

@@ -2,57 +2,22 @@
 <ozlympics>
     <persons>
         <persons>
-            <swimmers>
-                <swimmer UUID="2dc28d4b-ddf9-4bab-8a9e-826d93221773" age="34" name="Melisa Oros" points="0" state="WA"/>
-                <swimmer UUID="321a0198-9f01-49a5-bf71-960c82254736" age="24" name="Ramonita Cali" points="0" state="TAS"/>
-                <swimmer UUID="661f44f5-442e-4c04-a80d-949a18ba3f64" age="22" name="Samatha Varley" points="0" state="NSW"/>
-                <swimmer UUID="b53d1b13-58e6-4d7b-8cc3-89687bc2ffb1" age="28" name="Susana Cox" points="0" state="NSW"/>
-                <swimmer UUID="a9583f24-2dc5-410a-9dbd-11726fe6661e" age="23" name="Shizue Langevin" points="0" state="SA"/>
-                <swimmer UUID="620506e5-d087-4927-b9bb-87d1fc2e979d" age="35" name="Sallie Tullis" points="0" state="QLD"/>
-                <swimmer UUID="65fbb219-cbb8-4964-a88d-fc7eec2ef918" age="39" name="Tawanda Schexnayder" points="0" state="TAS"/>
-                <swimmer UUID="8f98f3bd-33e2-466f-83d6-769608fb31c1" age="45" name="Serafina Colgan" points="0" state="WA"/>
-            </swimmers>
+            <swimmers/>
             <sprinters>
-                <sprinter UUID="11181714-2816-4249-9331-1fb816ae5e65" age="35" name="Freddy Yeager" points="0" state="SA"/>
-                <sprinter UUID="76274f76-f906-4e6d-9dce-6be1b91b7a2e" age="26" name="Elana Brannon" points="0" state="NSW"/>
-                <sprinter UUID="cfd471da-cbea-4d74-ae74-3f4cc5f362a1" age="42" name="Carey Lieberman" points="0" state="VIC"/>
-                <sprinter UUID="babf6e2d-0d02-437c-9ec2-b7f2346debc2" age="29" name="Shaunte Orlandi" points="0" state="SA"/>
-                <sprinter UUID="9ed1d33c-beac-4fdd-821a-8f9a33e6d911" age="24" name="Yong Gourley" points="0" state="VIC"/>
-                <sprinter UUID="a69530c0-a695-4748-8231-9871c9ae4322" age="28" name="Michaela Keniston" points="0" state="TAS"/>
-                <sprinter UUID="90dc8132-c691-4d1c-ace9-87bf45e82268" age="36" name="Beckie Carlsen" points="0" state="VIC"/>
+                <sprinter UUID="deb96d29-b0f7-4be4-b7e7-d7de74ee34b0" age="27" name="saaa@@" points="0" state="QLD"/>
+                <sprinter UUID="afd1770b-ef78-47db-948d-bd3359ad1bc7" age="27" name="Dffee" points="2" state="QLD"/>
+                <sprinter UUID="3ab81e22-f332-4e5c-b3c3-6725b91704b6" age="27" name="DffeeA" points="1" state="QLD"/>
             </sprinters>
             <cyclists>
-                <cyclist UUID="8a021a6c-9856-4b26-be8a-3faae9a82a02" age="40" name="Beryl Mojica" points="0" state="VIC"/>
-                <cyclist UUID="98da2975-11e0-43a4-8dfe-33dd96f0f0c6" age="35" name="Marquita Helms" points="0" state="SA"/>
-                <cyclist UUID="f8af968b-b941-472b-8a30-334fed75d665" age="37" name="Jade Strachan" points="0" state="WA"/>
-                <cyclist UUID="2e34bf32-0d22-42bb-a03b-38004319c1da" age="23" name="Faviola Carmon" points="0" state="NSW"/>
-                <cyclist UUID="de5a8b7b-3371-4de7-8e1c-05525dd0f616" age="44" name="Kiera Points" points="0" state="TAS"/>
-                <cyclist UUID="987ec714-8d0a-41a1-9941-475225f1ec4d" age="32" name="Adrian Riffel" points="0" state="TAS"/>
-                <cyclist UUID="a076b7ca-d0bc-4397-8821-f869617d7b19" age="45" name="Mallie Kell" points="0" state="QLD"/>
-                <cyclist UUID="fd1e9a05-dc8d-4182-b8c0-2114a5ef6d25" age="30" name="Assunta Foshee" points="0" state="VIC"/>
-                <cyclist UUID="3d86a420-1cc3-41b3-ba4a-0b6444b7dd12" age="27" name="Daniell Pokorny" points="0" state="NSW"/>
-                <cyclist UUID="3fc4fc68-cf51-46c4-bc12-f9f9f4e1d308" age="33" name="Yasuko Rothfuss" points="0" state="QLD"/>
-                <cyclist UUID="92e0d4aa-64ff-43d6-aa8c-ba716322cc01" age="41" name="Broderick Nicolson" points="0" state="VIC"/>
+                <cyclist UUID="a78a9f36-e82b-4800-ac62-9e09aa62d36c" age="27" name="ASDfff" points="0" state="QLD"/>
             </cyclists>
             <superAthletes>
-                <superAthlete UUID="e34c13ec-6a68-4efa-9d98-b3b795fe8ebe" age="25" name="Cathy Blackford" points="72" state="VIC"/>
-                <superAthlete UUID="a74e805c-2e15-44ff-b882-9ef2283da7d5" age="36" name="Kyle Cremer" points="66" state="NSW"/>
-                <superAthlete UUID="1003aa20-a8dc-49a7-b981-dbdeb7e816d3" age="22" name="Lonnie Chu" points="78" state="TAS"/>
-                <superAthlete UUID="608025a6-5203-4ac7-8220-f507dafa92ea" age="35" name="Loriann Points" points="72" state="NSW"/>
+                <superAthlete UUID="e44ad79b-58b1-4e6b-b985-66e83b67bb19" age="27" name="Johanvz" points="5" state="QLD"/>
             </superAthletes>
         </persons>
         <officials>
             <referees>
-                <referee UUID="076dfdd7-909b-4764-b95e-e5165d97cbd1" age="36" name="Vina Shelman" state="SA"/>
-                <referee UUID="b7362c24-e169-4f95-a6a1-84ed5053690d" age="24" name="Starr Lade" state="NSW"/>
-                <referee UUID="4f4f5ccb-bfe4-4a8d-96cf-ecdec2bbd656" age="38" name="Eileen Grillo" state="QLD"/>
-                <referee UUID="dc3fb3e7-35e2-4d1f-bbe7-01516d27f07b" age="43" name="Maryjane Casady" state="TAS"/>
-                <referee UUID="1a2dfc56-c683-4034-93ae-0cfedc15b2d6" age="23" name="Hilaria Vigil" state="WA"/>
-                <referee UUID="468bc8df-cdfc-423c-8127-b98e0c6acbbc" age="24" name="John Masters" state="NSW"/>
-                <referee UUID="b1703f2c-2c13-4557-b22f-56b349e6f626" age="35" name="Myra Stepney" state="NSW"/>
-                <referee UUID="afe2e3b0-437d-465c-a558-d0f1229776fa" age="40" name="Beryl Victorino" state="TAS"/>
-                <referee UUID="873c6eed-c003-43d0-a96c-4c5d1349c9ac" age="25" name="Leena Kaup" state="QLD"/>
-                <referee UUID="5f161900-902c-4a18-8206-6c28fc38bde9" age="39" name="Stepanie Charette" state="NSW"/>
+                <referee UUID="61f07a98-6cb5-4ba2-b474-375c0a7b7bff" age="44" name="dffsee" state="TAS"/>
             </referees>
         </officials>
     </persons>
@@ -60,92 +25,15 @@
         <swimming/>
         <sprinting>
             <game beenRan="true" uniqueID="R01">
-                <person UUID="e34c13ec-6a68-4efa-9d98-b3b795fe8ebe"/>
-                <person UUID="a74e805c-2e15-44ff-b882-9ef2283da7d5"/>
-                <person UUID="1003aa20-a8dc-49a7-b981-dbdeb7e816d3"/>
-                <person UUID="608025a6-5203-4ac7-8220-f507dafa92ea"/>
-                <person UUID="afe2e3b0-437d-465c-a558-d0f1229776fa"/>
-                <athlete UUID="1003aa20-a8dc-49a7-b981-dbdeb7e816d3" time="14"/>
-            </game>
-            <game beenRan="true" uniqueID="R02">
-                <person UUID="e34c13ec-6a68-4efa-9d98-b3b795fe8ebe"/>
-                <person UUID="a74e805c-2e15-44ff-b882-9ef2283da7d5"/>
-                <person UUID="1003aa20-a8dc-49a7-b981-dbdeb7e816d3"/>
-                <person UUID="608025a6-5203-4ac7-8220-f507dafa92ea"/>
-                <person UUID="afe2e3b0-437d-465c-a558-d0f1229776fa"/>
-                <athlete UUID="1003aa20-a8dc-49a7-b981-dbdeb7e816d3" time="17"/>
-            </game>
-            <game beenRan="true" uniqueID="R03">
-                <person UUID="e34c13ec-6a68-4efa-9d98-b3b795fe8ebe"/>
-                <person UUID="a74e805c-2e15-44ff-b882-9ef2283da7d5"/>
-                <person UUID="1003aa20-a8dc-49a7-b981-dbdeb7e816d3"/>
-                <person UUID="608025a6-5203-4ac7-8220-f507dafa92ea"/>
-                <person UUID="afe2e3b0-437d-465c-a558-d0f1229776fa"/>
-                <athlete UUID="1003aa20-a8dc-49a7-b981-dbdeb7e816d3" time="17"/>
-            </game>
-            <game beenRan="true" uniqueID="R04">
-                <person UUID="e34c13ec-6a68-4efa-9d98-b3b795fe8ebe"/>
-                <person UUID="a74e805c-2e15-44ff-b882-9ef2283da7d5"/>
-                <person UUID="1003aa20-a8dc-49a7-b981-dbdeb7e816d3"/>
-                <person UUID="608025a6-5203-4ac7-8220-f507dafa92ea"/>
-                <person UUID="afe2e3b0-437d-465c-a558-d0f1229776fa"/>
-                <athlete UUID="1003aa20-a8dc-49a7-b981-dbdeb7e816d3" time="16"/>
-            </game>
-            <game beenRan="true" uniqueID="R05">
-                <person UUID="e34c13ec-6a68-4efa-9d98-b3b795fe8ebe"/>
-                <person UUID="a74e805c-2e15-44ff-b882-9ef2283da7d5"/>
-                <person UUID="1003aa20-a8dc-49a7-b981-dbdeb7e816d3"/>
-                <person UUID="608025a6-5203-4ac7-8220-f507dafa92ea"/>
-                <person UUID="afe2e3b0-437d-465c-a558-d0f1229776fa"/>
-                <athlete UUID="608025a6-5203-4ac7-8220-f507dafa92ea" time="16"/>
-            </game>
-            <game beenRan="true" uniqueID="R06">
-                <person UUID="e34c13ec-6a68-4efa-9d98-b3b795fe8ebe"/>
-                <person UUID="a74e805c-2e15-44ff-b882-9ef2283da7d5"/>
-                <person UUID="1003aa20-a8dc-49a7-b981-dbdeb7e816d3"/>
-                <person UUID="608025a6-5203-4ac7-8220-f507dafa92ea"/>
-                <person UUID="afe2e3b0-437d-465c-a558-d0f1229776fa"/>
-                <athlete UUID="a74e805c-2e15-44ff-b882-9ef2283da7d5" time="19"/>
-            </game>
-            <game beenRan="true" uniqueID="R07">
-                <person UUID="e34c13ec-6a68-4efa-9d98-b3b795fe8ebe"/>
-                <person UUID="a74e805c-2e15-44ff-b882-9ef2283da7d5"/>
-                <person UUID="1003aa20-a8dc-49a7-b981-dbdeb7e816d3"/>
-                <person UUID="608025a6-5203-4ac7-8220-f507dafa92ea"/>
-                <person UUID="afe2e3b0-437d-465c-a558-d0f1229776fa"/>
-                <athlete UUID="608025a6-5203-4ac7-8220-f507dafa92ea" time="18"/>
-            </game>
-            <game beenRan="true" uniqueID="R08">
-                <person UUID="e34c13ec-6a68-4efa-9d98-b3b795fe8ebe"/>
-                <person UUID="a74e805c-2e15-44ff-b882-9ef2283da7d5"/>
-                <person UUID="1003aa20-a8dc-49a7-b981-dbdeb7e816d3"/>
-                <person UUID="608025a6-5203-4ac7-8220-f507dafa92ea"/>
-                <person UUID="afe2e3b0-437d-465c-a558-d0f1229776fa"/>
-                <athlete UUID="608025a6-5203-4ac7-8220-f507dafa92ea" time="17"/>
-            </game>
-            <game beenRan="true" uniqueID="R09">
-                <person UUID="e34c13ec-6a68-4efa-9d98-b3b795fe8ebe"/>
-                <person UUID="a74e805c-2e15-44ff-b882-9ef2283da7d5"/>
-                <person UUID="1003aa20-a8dc-49a7-b981-dbdeb7e816d3"/>
-                <person UUID="608025a6-5203-4ac7-8220-f507dafa92ea"/>
-                <person UUID="afe2e3b0-437d-465c-a558-d0f1229776fa"/>
-                <athlete UUID="1003aa20-a8dc-49a7-b981-dbdeb7e816d3" time="19"/>
-            </game>
-            <game beenRan="true" uniqueID="R10">
-                <person UUID="e34c13ec-6a68-4efa-9d98-b3b795fe8ebe"/>
-                <person UUID="a74e805c-2e15-44ff-b882-9ef2283da7d5"/>
-                <person UUID="1003aa20-a8dc-49a7-b981-dbdeb7e816d3"/>
-                <person UUID="608025a6-5203-4ac7-8220-f507dafa92ea"/>
-                <person UUID="afe2e3b0-437d-465c-a558-d0f1229776fa"/>
-                <athlete UUID="e34c13ec-6a68-4efa-9d98-b3b795fe8ebe" time="16"/>
-            </game>
-            <game beenRan="true" uniqueID="R11">
-                <person UUID="e34c13ec-6a68-4efa-9d98-b3b795fe8ebe"/>
-                <person UUID="a74e805c-2e15-44ff-b882-9ef2283da7d5"/>
-                <person UUID="1003aa20-a8dc-49a7-b981-dbdeb7e816d3"/>
-                <person UUID="608025a6-5203-4ac7-8220-f507dafa92ea"/>
-                <person UUID="afe2e3b0-437d-465c-a558-d0f1229776fa"/>
-                <athlete UUID="e34c13ec-6a68-4efa-9d98-b3b795fe8ebe" time="19"/>
+                <person UUID="e44ad79b-58b1-4e6b-b985-66e83b67bb19"/>
+                <person UUID="afd1770b-ef78-47db-948d-bd3359ad1bc7"/>
+                <person UUID="3ab81e22-f332-4e5c-b3c3-6725b91704b6"/>
+                <person UUID="61f07a98-6cb5-4ba2-b474-375c0a7b7bff"/>
+                <person UUID="deb96d29-b0f7-4be4-b7e7-d7de74ee34b0"/>
+                <athlete UUID="e44ad79b-58b1-4e6b-b985-66e83b67bb19" time="10"/>
+                <athlete UUID="afd1770b-ef78-47db-948d-bd3359ad1bc7" time="12"/>
+                <athlete UUID="3ab81e22-f332-4e5c-b3c3-6725b91704b6" time="13"/>
+                <athlete UUID="deb96d29-b0f7-4be4-b7e7-d7de74ee34b0" time="14"/>
             </game>
         </sprinting>
         <cycling/>

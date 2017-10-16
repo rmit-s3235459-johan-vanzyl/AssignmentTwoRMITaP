@@ -113,5 +113,5 @@ public interface DATA {
 
     String OZLYMPICS = "ozlympics";
 
-
+    int HEIGHT_FROM_BOTTOM = 370;
 }

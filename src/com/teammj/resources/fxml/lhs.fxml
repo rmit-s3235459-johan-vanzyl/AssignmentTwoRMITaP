@@ -7,14 +7,13 @@
 <?import javafx.collections.FXCollections?>
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
-      style="-fx-padding: 0 5px 0 0"
       styleClass="border-property-left"
       fx:controller="com.teammj.controller.LHSpane"
       fx:id="rootLHS">
-    <Label styleClass="subhead" alignment="CENTER">
+    <Label styleClass="subhead" alignment="CENTER" maxWidth="${rootLHS.width}">
         Persons
     </Label>
-    <HBox>
+    <HBox style="-fx-padding: 0 0 0 3px">
         <TableView fx:id="tblViewPersons" maxWidth="330"/>
         <VBox styleClass="border-property-inner-left">
             <Label styleClass="header">
@@ -42,7 +41,7 @@
                     </FXCollections>
                 </items>
             </ComboBox>
-            <Button text="Add Athlete" fx:id="addAthlete" onMouseClicked="#addNewAthlete"/>
+            <Button text="Add Athlete" fx:id="addAthlete" onMouseClicked="#addNewAthlete" onKeyPressed="#addNewAthlete"/>
             <Label fx:id="addAfeedBack" styleClass="warning"/>
             <Label styleClass="header">
                 Add Referee

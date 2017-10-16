@@ -30,11 +30,11 @@ final public class CenterPane implements Initializable {
     }
 
     private void bindAnchors() {
-        tblviewgames.prefHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(350));
-        tblviewgames.maxHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(350));
-        tblViewGame.prefHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(350));
-        tblViewGame.maxHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(350));
-        tblViewGame.prefWidthProperty().bind(Ozlympic.getCurrentStage().widthProperty().subtract(958));
+        tblviewgames.prefHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(DATA.HEIGHT_FROM_BOTTOM));
+        tblviewgames.maxHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(DATA.HEIGHT_FROM_BOTTOM));
+        tblViewGame.prefHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(DATA.HEIGHT_FROM_BOTTOM));
+        tblViewGame.maxHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(DATA.HEIGHT_FROM_BOTTOM));
+        tblViewGame.prefWidthProperty().bind(Ozlympic.getCurrentStage().widthProperty().subtract(918));
     }
 
     private void setupGamesTable() {

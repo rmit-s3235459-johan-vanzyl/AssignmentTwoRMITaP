@@ -17,8 +17,6 @@ import java.util.UUID;
 public final class Swimmer extends Athlete {
     public Swimmer(String name, int age, DATA.STATE fromState, Element element, UUID... uuids) {
         super(name, age, fromState, element, DATA.PERSON_TYPE.Swimmer, uuids);
-        System.out.printf("Hello, my name is %s and I am %d years old. " +
-                "I am also a Swimmer.\n", name, age);
     }
 
     /**

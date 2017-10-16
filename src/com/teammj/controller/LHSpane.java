@@ -12,6 +12,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Element;
@@ -43,8 +44,8 @@ final public class LHSpane implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setupPersonsTable();
         setupValidators();
-        tblViewPersons.prefHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(350));
-        tblViewPersons.maxHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(350));
+        tblViewPersons.prefHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(DATA.HEIGHT_FROM_BOTTOM));
+        tblViewPersons.maxHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(DATA.HEIGHT_FROM_BOTTOM));
     }
 
     /**
@@ -132,7 +133,8 @@ final public class LHSpane implements Initializable {
         tblViewPersons.getColumns().addAll(nameColumn, typeColumn, stateColumn, ageColumn);
     }
 
-    public void addNewAthlete() {
+    public void addNewAthlete(KeyEvent keyEvent) {
+        System.out.println(keyEvent.getCode().getName());
         try {
             if (txtFieldAAge.getText().length() < 1) {
                 addAfeedBack.setText("Please input age.");
