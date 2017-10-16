@@ -3,6 +3,7 @@ package com.teammj.controller;
 import com.teammj.Ozlympic;
 import com.teammj.model.DATA;
 import com.teammj.model.games.Game;
+import com.teammj.model.persons.AthleteMap;
 import com.teammj.model.persons.Referee;
 import com.teammj.model.persons.base.Athlete;
 import javafx.fxml.Initializable;

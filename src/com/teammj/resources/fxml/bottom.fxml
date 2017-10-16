@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.collections.FXCollections?>
+<HBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      styleClass="border-property-bottom"
+      prefHeight="215"
+      fx:controller="com.teammj.controller.BottomPane">
+    <VBox>
+        <HBox>
+            <Label styleClass="header" style="-fx-padding: 0 15px 0 0">
+                New Game
+            </Label>
+            <ComboBox fx:id="cmbGType" promptText="Game Type">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Swimming"/>
+                        <String fx:value="Sprinting"/>
+                        <String fx:value="Cycling"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <Button onMouseClicked="#clearPlayerTbl">Clear</Button>
+        </HBox>
+
+        <TableView fx:id="tblGameParticipants"/>
+        <Label fx:id="addPfeedback">
+            Drag Persons in Here!
+        </Label>
+    </VBox>
+    <VBox style="-fx-padding: 0 0 0 15px">
+        <Pane style="-fx-padding: 15px 0 0 0">
+            <Button styleClass="title" prefHeight="80" disable="true" fx:id="startRaceBtn"
+                    onMouseClicked="#startRace">
+                START RACE!!!
+            </Button>
+        </Pane>
+    </VBox>
+    <Label fx:id="didIwin"/>
+</HBox>

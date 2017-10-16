@@ -1,4 +1,4 @@
-package com.teammj.controller;
+package com.teammj.model.persons;
 
 /**
  * For displaying athlete times in a TableView class

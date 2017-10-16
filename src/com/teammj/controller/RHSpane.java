@@ -12,7 +12,7 @@ import java.util.ResourceBundle;
 
 import static com.teammj.controller.Main.athletes;
 
-public class RHSpane implements Initializable {
+final public class RHSpane implements Initializable {
     public TableView tblViewAthletesRank;
 
     @Override
