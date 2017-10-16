@@ -10,10 +10,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.Dragboard;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.input.TransferMode;
+import javafx.scene.input.*;
 import javafx.scene.layout.VBox;
 import org.w3c.dom.Element;
 
@@ -144,8 +141,17 @@ final public class LHSpane implements Initializable {
         tblViewPersons.getColumns().addAll(nameColumn, typeColumn, stateColumn, ageColumn);
     }
 
+    public void addNewAthleteClick() {
+        addNewAthlete(null);
+    }
+
     public void addNewAthlete(KeyEvent keyEvent) {
-        System.out.println(keyEvent.getCode().getName());
+        if(keyEvent != null) {
+            if(keyEvent.getCode() != KeyCode.ENTER) {
+                return;
+            }
+        }
+
         try {
             if (txtFieldAAge.getText().length() < 1) {
                 addAfeedBack.setText("Please input age.");
@@ -244,6 +250,12 @@ final public class LHSpane implements Initializable {
             officials.add(referee);
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void addNewRefKey(KeyEvent keyEvent) {
+        if(keyEvent.getCode() == KeyCode.ENTER) {
+            addNewReferee();
         }
     }
 }

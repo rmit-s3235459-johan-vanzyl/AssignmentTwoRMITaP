@@ -41,7 +41,7 @@
                     </FXCollections>
                 </items>
             </ComboBox>
-            <Button text="Add Athlete" fx:id="addAthlete" onMouseClicked="#addNewAthlete" onKeyPressed="#addNewAthlete"/>
+            <Button text="Add Athlete" fx:id="addAthlete" onMouseClicked="#addNewAthleteClick" onKeyPressed="#addNewAthlete"/>
             <Label fx:id="addAfeedBack" styleClass="warning"/>
             <Label styleClass="header">
                 Add Referee
@@ -60,7 +60,7 @@
                     </FXCollections>
                 </items>
             </ComboBox>
-            <Button text="Add Referee" fx:id="addReferee" onMouseClicked="#addNewReferee"/>
+            <Button text="Add Referee" fx:id="addReferee" onMouseClicked="#addNewReferee" onKeyPressed="#addNewRefKey"/>
             <Label fx:id="addRfeedBack" styleClass="warning"/>
         </VBox>
     </HBox>

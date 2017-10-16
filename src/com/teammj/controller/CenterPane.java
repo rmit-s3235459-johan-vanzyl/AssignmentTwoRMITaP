@@ -18,6 +18,11 @@ import java.util.ResourceBundle;
 import static com.teammj.controller.Main.athleteGameMap;
 import static com.teammj.controller.Main.games;
 
+/**
+ * Controller Class for the center pane
+ * @author Johan van Zyl
+ * @author Michael Guida
+ */
 final public class CenterPane implements Initializable {
     public TableView<Game> tblviewgames;
     public TableView<AthleteMap> tblViewGame;
@@ -29,6 +34,9 @@ final public class CenterPane implements Initializable {
         bindAnchors();
     }
 
+    /**
+     * Stretches content according window size
+     */
     private void bindAnchors() {
         tblviewgames.prefHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(DATA.HEIGHT_FROM_BOTTOM));
         tblviewgames.maxHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(DATA.HEIGHT_FROM_BOTTOM));
@@ -37,6 +45,9 @@ final public class CenterPane implements Initializable {
         tblViewGame.prefWidthProperty().bind(Ozlympic.getCurrentStage().widthProperty().subtract(918));
     }
 
+    /**
+     * Sets up the game menu where to choose games from
+     */
     private void setupGamesTable() {
         TableColumn<Game, DATA.GAMETYPE> gameType = new TableColumn<>("Game Type");
         TableColumn<Game, Integer> gameCount = new TableColumn<>("Game No");
@@ -52,6 +63,10 @@ final public class CenterPane implements Initializable {
         });
     }
 
+    /**
+     * Once a player selected game, we need to display competitors
+     * @param selectedItem - selected game
+     */
     private void fillInGameMap(Game selectedItem) {
         athleteGameMap.clear();
         tblViewGame.getItems().clear();
@@ -64,6 +79,9 @@ final public class CenterPane implements Initializable {
         });
     }
 
+    /**
+     * Sets up the game details table
+     */
     private void setupGameTable() {
         TableColumn<AthleteMap, String> nameColumn = new TableColumn<>("Name");
         TableColumn<AthleteMap, Integer> timeTaken = new TableColumn<>("Time Taken (s)");

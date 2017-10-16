@@ -1,5 +1,6 @@
 package com.teammj.controller;
 
+import com.teammj.Ozlympic;
 import com.teammj.model.DATA;
 import com.teammj.model.games.CyclingGame;
 import com.teammj.model.games.Game;
@@ -8,54 +9,76 @@ import com.teammj.model.games.SwimmingGame;
 import com.teammj.model.persons.Competitor;
 import com.teammj.model.persons.Referee;
 import com.teammj.model.persons.base.Athlete;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import static com.teammj.controller.Main.gamePersons;
 import static com.teammj.controller.Main.games;
 import static com.teammj.controller.Main.persons;
 
-final public class BottomPane implements Initializable{
+/**
+ * Controller Class for the bottom pane
+ * @author Johan van Zyl
+ * @author Michael Guida
+ */
+final public class BottomPane implements Initializable {
     public ComboBox cmbGType;
     public TableView<Competitor> tblGameParticipants;
     public Label addPfeedback;
     public Button startRaceBtn;
     public Label didIwin;
+    public VBox racers;
+    public ImageView eventTypeIcon;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupGamePersonsTable();
     }
 
+    /**
+     * Clear player table
+     */
     public void clearPlayerTbl() {
         gamePersons.clear();
         startRaceBtn.setDisable(true);
     }
 
+    /**
+     * For the start button.
+     * Will only be enabled once enough players are in table
+     * and referee in there too.
+     */
     public void startRace() {
         Game game;
         final Athlete[] predictedWinner = new Athlete[1];
+        DATA.GAMETYPE gametype;
         switch ((String) cmbGType.getValue()) {
             case "Swimming":
                 game = new SwimmingGame(DocumentHandler.addSwimmingGame(Main.getDocument()));
+                gametype = DATA.GAMETYPE.Swimming;
                 break;
             case "Sprinting":
                 game = new SprintGame(DocumentHandler.addSprintingGame(Main.getDocument()));
+                gametype = DATA.GAMETYPE.Sprinting;
                 break;
             case "Cycling":
                 game = new CyclingGame(DocumentHandler.addCyclingGame(Main.getDocument()));
+                gametype = DATA.GAMETYPE.Cycling;
                 break;
             default:
                 return;
@@ -64,11 +87,11 @@ final public class BottomPane implements Initializable{
         Map<Athlete, Integer> finalAthleteTimes = athleteTimes;
         final Referee[] referee = new Referee[1];
         gamePersons.forEach(competitor -> {
-            if(competitor.getPersonType() != DATA.PERSON_TYPE.Referee) {
+            if (competitor.getPersonType() != DATA.PERSON_TYPE.Referee) {
                 Athlete athlete = (Athlete) competitor.getPerson();
                 int time = athlete.compete(game);
                 finalAthleteTimes.put(athlete, time);
-                if(competitor.isPredictedWinner()) predictedWinner[0] = (Athlete) competitor.getPerson();
+                if (competitor.isPredictedWinner()) predictedWinner[0] = (Athlete) competitor.getPerson();
             } else {
                 referee[0] = (Referee) competitor.getPerson();
             }
@@ -92,8 +115,34 @@ final public class BottomPane implements Initializable{
         game.setHaveIbeenRan(true, false);
         game.setAthleteTimes(athleteTimes);
         games.add(game);
+
+        racers.getChildren().clear();
+        ArrayDeque<Animation> animations = new ArrayDeque<>(athleteTimes.size());
+        double divFactor = 10.0;
+        switch (gametype) {
+            case Cycling:
+                divFactor /= 800.0;
+                break;
+            case Swimming:
+                divFactor /= 200.0;
+                break;
+            case Sprinting:
+                divFactor /= 20.0;
+                break;
+        }
+
+        double finalDivFactor = divFactor;
+        athleteTimes.forEach((athlete, integer) -> animations.add(
+                new Animation(
+                        athlete.getName(),
+                        (int) (integer * finalDivFactor)
+                )
+        ));
     }
 
+    /**
+     * Sets up game table where persons can be added to
+     */
     private void setupGamePersonsTable() {
         TableColumn<Competitor, String> nameColumn = new TableColumn<>("Name");
         TableColumn<Competitor, DATA.PERSON_TYPE> typeColumn = new TableColumn<>("Type");
@@ -212,6 +261,9 @@ final public class BottomPane implements Initializable{
         });
     }
 
+    /**
+     * Check if game can start
+     */
     private void checkGameCanStart() {
         final Boolean[] refFound = {false, false};
         final Integer[] count = {0};
@@ -232,11 +284,14 @@ final public class BottomPane implements Initializable{
         }
     }
 
+    /**
+     * CHeck if there is a prediction error
+     */
     private void checkPredictedErr() {
         final Integer[] count = {0};
         gamePersons.forEach(competitor -> {
             if (competitor.getPersonType() == DATA.PERSON_TYPE.Referee) {
-                if(competitor.isPredictedWinner()) {
+                if (competitor.isPredictedWinner()) {
                     competitor.setPredictedWinner(false);
                     addPfeedback.setText("Referee cannot be the predicted winner!");
                     addPfeedback.getStyleClass().add("warning");
@@ -252,6 +307,10 @@ final public class BottomPane implements Initializable{
         checkGameCanStart();
     }
 
+    /**
+     * Notification at the bottom of the page
+     * @param s - message
+     */
     private void gameNotif(String s) {
         new Thread(() -> {
             try {
@@ -264,5 +323,76 @@ final public class BottomPane implements Initializable{
                 e.printStackTrace();
             }
         }).start();
+    }
+
+    /**
+     * Catches a person trying the change game type
+     * (or attempts too)
+     */
+    public void validatePlayersTable() {
+        try {
+            if(cmbGType.getValue() == null) return;
+            switch ((String) cmbGType.getValue()) {
+                case "Swimming":
+                    gamePersons.forEach(competitor -> {
+                        if (competitor.getPersonType() != DATA.PERSON_TYPE.Referee &&
+                                competitor.getPersonType() != DATA.PERSON_TYPE.SuperAthlete &&
+                                competitor.getPersonType() != DATA.PERSON_TYPE.Swimmer) {
+                            clearPlayerTbl();
+                        }
+                    });
+                    break;
+                case "Sprinting":
+                    gamePersons.forEach(competitor -> {
+                        if (competitor.getPersonType() != DATA.PERSON_TYPE.Referee &&
+                                competitor.getPersonType() != DATA.PERSON_TYPE.SuperAthlete &&
+                                competitor.getPersonType() != DATA.PERSON_TYPE.Sprinter) {
+                            clearPlayerTbl();
+                        }
+                    });
+                    break;
+                case "Cycling":
+                    gamePersons.forEach(competitor -> {
+                        if (competitor.getPersonType() != DATA.PERSON_TYPE.Referee &&
+                                competitor.getPersonType() != DATA.PERSON_TYPE.SuperAthlete &&
+                                competitor.getPersonType() != DATA.PERSON_TYPE.Cyclist) {
+                            clearPlayerTbl();
+                        }
+                    });
+                    break;
+            }
+        } catch (Exception ignored) {} //to be expected
+    }
+
+    /**
+     * For racers animation
+     * Probably a bit too verbose. But can be extended in the future?
+     */
+    public class Animation {
+        private String name;
+        private int timeToRace;
+        private ProgressBar progressBar;
+        private Label label;
+
+        public Animation(String name, int timeToRace) {
+            this.name = name;
+            this.timeToRace = timeToRace;
+            this.progressBar = new ProgressBar();
+            this.label = new Label(name);
+            racers.getChildren().add(this.label);
+            racers.getChildren().add(this.progressBar); //315
+            this.progressBar.prefWidthProperty().bind(Ozlympic.getCurrentStage().widthProperty().subtract(588));
+            this.progressBar.maxWidthProperty().bind(Ozlympic.getCurrentStage().widthProperty().subtract(588));
+
+            new Timeline(
+                    new KeyFrame(
+                            Duration.ZERO,
+                            new KeyValue(progressBar.progressProperty(), 0)
+                    ),
+                    new KeyFrame(
+                            Duration.seconds(timeToRace),
+                            new KeyValue(progressBar.progressProperty(), 1))
+            ).play();
+        }
     }
 }

@@ -19,6 +19,9 @@ import java.io.File;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Main controller for application
+ */
 final public class Main implements Initializable {
 
     private static Document document = null;
@@ -70,6 +73,9 @@ final public class Main implements Initializable {
         persons.addAll(officials);
     }
 
+    /**
+     * Handles auto save event when closed
+     */
     public static void escape() {
         new Thread(() -> {
             if (document != null) {

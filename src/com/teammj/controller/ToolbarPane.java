@@ -45,7 +45,6 @@ final public class ToolbarPane implements Initializable{
             }
         }
 
-
         athletes.clear();
         officials.clear();
         persons.clear();
@@ -62,8 +61,6 @@ final public class ToolbarPane implements Initializable{
     public void exit() {
         Main.escape();
     }
-
-
 
     public static void loadFile(String... args) {
         athletes.clear();

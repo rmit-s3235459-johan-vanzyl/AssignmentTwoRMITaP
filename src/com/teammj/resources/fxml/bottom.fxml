@@ -15,7 +15,7 @@
             <Label styleClass="header" style="-fx-padding: 0 15px 0 0">
                 New Game
             </Label>
-            <ComboBox fx:id="cmbGType" promptText="Game Type">
+            <ComboBox fx:id="cmbGType" promptText="Game Type" onMouseClicked="#validatePlayersTable">
                 <items>
                     <FXCollections fx:factory="observableArrayList">
                         <String fx:value="Swimming"/>
@@ -33,12 +33,11 @@
         </Label>
     </VBox>
     <VBox style="-fx-padding: 0 0 0 15px">
-        <Pane style="-fx-padding: 15px 0 0 0">
-            <Button styleClass="title" prefHeight="160" disable="true" fx:id="startRaceBtn"
-                    onMouseClicked="#startRace">
-                START RACE!!!
-            </Button>
-        </Pane>
+        <Button styleClass="title" prefHeight="160" disable="true" fx:id="startRaceBtn"
+                onMouseClicked="#startRace">
+            START RACE!!!
+        </Button>
+        <Label fx:id="didIwin"/>
     </VBox>
-    <Label fx:id="didIwin"/>
+    <VBox fx:id="racers" style="-fx-padding: 0 0 0 5px"/>
 </HBox>

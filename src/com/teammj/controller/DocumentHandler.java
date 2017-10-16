@@ -30,8 +30,19 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * Document handler for xml files
+ * @author Johan van Zyl
+ * @author Michael Guida
+ */
 public final class DocumentHandler {
 
+    /**
+     * Sets attribute of element
+     * @param type - type of element
+     * @param value - the elements values
+     * @param source - the parent element
+     */
     public static void setAttr(final String type, final String value, final Element source) {
         Attr attr = source.getAttributeNode(type);
         if (attr == null) {
@@ -41,6 +52,16 @@ public final class DocumentHandler {
         attr.setValue(value);
     }
 
+    /**
+     * Generates a xml game file and returns the document.
+     * Also fills in the lists described.
+     * @param window - can be null if loading from command line
+     * @param athletes - list to be filled
+     * @param officials - list to be filled
+     * @param addPersons - add persons to list
+     * @param games - list to be filled
+     * @return - the document
+     */
     static Document generateSaveFile(@Nullable final Window window,
                                      final ObservableList<Athlete> athletes,
                                      final ObservableList<Official> officials,
@@ -180,6 +201,12 @@ public final class DocumentHandler {
         return document;
     }
 
+    /**
+     * Save the current game to xml file
+     * @param document - the document
+     * @param window - the window, if null, presume AutoSave event
+     * @param files - if passed - no filechooser dialog
+     */
     public static void saveGame(Document document, @Nullable final Window window, File... files) {
         File file;
         if (files.length > 0) {
@@ -213,6 +240,15 @@ public final class DocumentHandler {
         }
     }
 
+    /**
+     * Load game from file. Either through a filechooser or a specified file
+     * @param window - the window (optional)
+     * @param athletes - list to fill
+     * @param officials - list to fill
+     * @param games - list to fill
+     * @param files - optional specified file
+     * @return - the document
+     */
     public static Document loadFromSavedFile(@Nullable final Window window,
                                              final ObservableList<Athlete> athletes,
                                              final ObservableList<Official> officials,
@@ -282,6 +318,11 @@ public final class DocumentHandler {
         return document;
     }
 
+    /**
+     * Return state type from string
+     * @param state_s - state as string
+     * @return - state as type
+     */
     public static DATA.STATE parseState(String state_s) {
         DATA.STATE state = null;
         switch (state_s) {
@@ -308,6 +349,12 @@ public final class DocumentHandler {
         return state;
     }
 
+    /**
+     * Helper method to return athletes found in nodelist of xml elements
+     * @param nodeList - the element list
+     * @param athletes - athlete list
+     * @return - the map of athletes found
+     */
     private static Map<Athlete, Integer> parseAthleteTimes(NodeList nodeList, ObservableList<Athlete> athletes) {
         Map<Athlete, Integer> athleteTimes = new HashMap<>();
 
@@ -327,6 +374,13 @@ public final class DocumentHandler {
         return athleteTimes;
     }
 
+    /**
+     * Find persons attended a game from xml nodelist
+     * @param nodeList - the nodelist to analyse
+     * @param athletes - athletes to fill
+     * @param officials - list to fill
+     * @return - list of perons found
+     */
     private static ArrayList<Person> parsePersonsAttended(NodeList nodeList,
                                                           ObservableList<Athlete> athletes,
                                                           ObservableList<Official> officials) {
@@ -411,6 +465,12 @@ public final class DocumentHandler {
         return games;
     }
 
+    /**
+     * Helper method to get ahtletes from nodelist
+     * @param nodeList - list to analyse
+     * @param athleteType - type to analyse
+     * @return - the list of athletes found
+     */
     private static ArrayList<Athlete> parseAthletesFromNode(NodeList nodeList, DATA.ATHLETE_TYPE athleteType) {
         ArrayList<Athlete> athletes = new ArrayList<>();
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -444,8 +504,12 @@ public final class DocumentHandler {
         return athletes;
     }
 
+    /**
+     * Sets attributes if not found in xml file
+     * @param athleteTimes - list to analyse
+     * @param element - element to start to dig into
+     */
     public static void updateAthleteMap(Map<Athlete, Integer> athleteTimes, final Element element) {
-
         for (Map.Entry<Athlete, Integer> entry : athleteTimes.entrySet()) {
             Integer time = entry.getValue();
             Athlete athlete = entry.getKey();
@@ -463,7 +527,6 @@ public final class DocumentHandler {
                 }
             }
             if (!found) {
-                System.out.println("Created element for time " + time);
                 Element elementA = element.getOwnerDocument().createElement(DATA.ATHLETE);
                 setAttr(DATA.UUID, athlete.getUniqueID().toString(), elementA);
                 setAttr(DATA.TIME, time.toString(), elementA);
@@ -471,6 +534,11 @@ public final class DocumentHandler {
             }
         }
     }
+
+    /**
+     * Rest if the methods are self explanatory
+     * returns element created in a document by type
+     */
 
     static Element addCyclist(final Document document) {
         try {
