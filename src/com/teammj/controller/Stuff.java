@@ -1,5 +1,6 @@
 package com.teammj.controller;
 
+import javafx.scene.control.Alert;
 import javafx.scene.control.Tooltip;
 
 public class Stuff {
@@ -34,6 +35,14 @@ public class Stuff {
 //        exit.setToolTip(exitTip);
 
         //testing push
+
+        Alert dialog1 = new Alert(Alert.AlertType.INFORMATION);
+        dialog1.setTitle("Dialog 1");
+        dialog1.setHeaderText("Dialog box");
+        dialog1.setContentText("This is a message");
+
+        dialog1.showAndWait();
+
 
     }
 
