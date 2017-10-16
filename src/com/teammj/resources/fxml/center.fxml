@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            styleClass="border-property-center"
+            fx:controller="com.teammj.controller.CenterPane">
+    <VBox>
+        <Label styleClass="subhead" alignment="CENTER">
+            Past Games
+        </Label>
+        <HBox styleClass="border-property-center">
+            <TableView fx:id="tblviewgames" prefWidth="170"/>
+            <TableView fx:id="tblViewGame" />
+        </HBox>
+    </VBox>
+</AnchorPane>

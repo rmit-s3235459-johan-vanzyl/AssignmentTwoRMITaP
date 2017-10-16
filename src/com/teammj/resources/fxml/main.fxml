@@ -21,17 +21,7 @@
                 <fx:include source="lhs.fxml"/>
             </left>
             <center>
-                <AnchorPane fx:id="centerPane" styleClass="border-property-center">
-                    <VBox>
-                        <Label styleClass="subhead" prefWidth="${centerPane.width - 15}" alignment="CENTER">
-                            Past Games
-                        </Label>
-                        <HBox styleClass="border-property-center">
-                            <TableView fx:id="tblviewgames" prefHeight="${root.height - 350}" prefWidth="170"/>
-                            <TableView fx:id="tblViewGame" prefHeight="${root.height - 350}"/>
-                        </HBox>
-                    </VBox>
-                </AnchorPane>
+                <fx:include source="center.fxml"/>
             </center>
             <right>
                 <VBox styleClass="border-property-right">

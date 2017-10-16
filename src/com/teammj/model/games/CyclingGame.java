@@ -24,6 +24,7 @@ public final class CyclingGame implements Game {
     private Map<Athlete, Integer> athleteTimes;
     private String uniqueID;
     private static Integer count = 1;
+    private Integer mycount = count;
     private boolean haveIbeenRan;
     private Element element;
     private static final DATA.GAMETYPE gametype = DATA.GAMETYPE.Cycling;
@@ -32,6 +33,7 @@ public final class CyclingGame implements Game {
         this.element = element;
         participants = new ArrayList<>();
         this.element = element;
+        mycount = count - 1;
         if (count < 10) {
             setUniqueID("C0".concat(Integer.toString(count++)), false);
         } else {
@@ -97,13 +99,11 @@ public final class CyclingGame implements Game {
     }
 
     @Override
-    public Integer getCount() {
-        return count - 2;
-    }
-
-    @Override
     public void setCount(Integer i) {
         count = i;
     }
 
+    public Integer getMycount() {
+        return mycount;
+    }
 }

@@ -29,6 +29,5 @@ public interface Game  {
     void setUniqueID(String uniqueID, boolean loading);
     void addParticipant(Person participant);
     public DATA.GAMETYPE getGametype();
-    public Integer getCount();
     public void setCount(Integer i);
 }

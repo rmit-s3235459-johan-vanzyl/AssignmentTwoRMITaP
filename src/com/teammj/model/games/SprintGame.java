@@ -21,6 +21,7 @@ public final class SprintGame implements Game {
     private Map<Athlete, Integer> athleteTimes;
     private String uniqueID;
     private static Integer count = 1;
+    private Integer mycount = count;
     private boolean haveIbeenRan;
     private Element element;
     private static final DATA.GAMETYPE gametype = DATA.GAMETYPE.Sprinting;
@@ -28,6 +29,7 @@ public final class SprintGame implements Game {
     public SprintGame(Element element) {
         this.element = element;
         participants = new ArrayList<>();
+        mycount = count - 1;
         if (count < 10) {
             setUniqueID("R0".concat(Integer.toString(count++)), false);
         } else {
@@ -89,13 +91,13 @@ public final class SprintGame implements Game {
         return gametype;
     }
 
-    @Override
-    public Integer getCount() {
-        return count - 2;
-    }
 
     @Override
     public void setCount(Integer i) {
         count = i;
+    }
+
+    public Integer getMycount() {
+        return mycount;
     }
 }

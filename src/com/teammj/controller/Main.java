@@ -6,7 +6,6 @@ import com.teammj.model.games.CyclingGame;
 import com.teammj.model.games.Game;
 import com.teammj.model.games.SprintGame;
 import com.teammj.model.games.SwimmingGame;
-import com.teammj.model.persons.*;
 import com.teammj.model.persons.base.Athlete;
 import com.teammj.model.persons.base.Official;
 import com.teammj.model.persons.base.Person;
@@ -40,9 +39,6 @@ public class Main implements Initializable {
     static final ObservableList<AthleteMap> athleteGameMap = FXCollections.observableArrayList();
 
     public AnchorPane root;
-    public AnchorPane centerPane;
-    public TableView<Game> tblviewgames;
-    public TableView<AthleteMap> tblViewGame;
     public TableView<Athlete> tblViewAthletesRank;
     public TableView<Competitor> tblGameParticipants;
     public Label addPfeedback;
@@ -52,15 +48,12 @@ public class Main implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        setupGamesTable();
-        setupGameTable();
         setupGamePersonsTable();
         setupAthletesRank();
 
         generateDocument();
 
     }
-
 
     private void generateDocument() {
         if (document != null) return;
@@ -86,37 +79,6 @@ public class Main implements Initializable {
         tblViewAthletesRank.setItems(athletes);
         tblViewAthletesRank.getColumns().addAll(athleteName, athleteScore);
 
-    }
-
-    private void setupGameTable() {
-        TableColumn<AthleteMap, String> nameColumn = new TableColumn<>("Name");
-        TableColumn<AthleteMap, Integer> timeTaken = new TableColumn<>("Time Taken (s)");
-        TableColumn<AthleteMap, Integer> athletePoints = new TableColumn<>("Total Points");
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("athleteName"));
-        timeTaken.setCellValueFactory(new PropertyValueFactory<>("athleteTime"));
-        athletePoints.setCellValueFactory(new PropertyValueFactory<>("athletePoints"));
-
-        nameColumn.setPrefWidth(140.0);
-        timeTaken.setPrefWidth(100.0);
-
-        tblViewGame.setItems(athleteGameMap);
-        tblViewGame.getColumns().addAll(nameColumn, timeTaken, athletePoints);
-    }
-
-    private void setupGamesTable() {
-        TableColumn<Game, DATA.GAMETYPE> gameType = new TableColumn<>("Game Type");
-        TableColumn<Game, Integer> gameCount = new TableColumn<>("Game No");
-        gameType.setCellValueFactory(new PropertyValueFactory<>("gametype"));
-        gameCount.setCellValueFactory(new PropertyValueFactory<>("count"));
-
-        tblviewgames.setItems(games);
-        tblviewgames.getColumns().addAll(gameType, gameCount);
-        tblviewgames.setOnMouseClicked(event -> {
-            if (tblviewgames.getSelectionModel().getSelectedItem() != null) {
-                fillInGameMap(tblviewgames.getSelectionModel().getSelectedItem());
-            }
-
-        });
     }
 
     private void setupGamePersonsTable() {
@@ -287,17 +249,7 @@ public class Main implements Initializable {
         }).start();
     }
 
-    private void fillInGameMap(Game selectedItem) {
-        athleteGameMap.clear();
-        tblViewGame.getItems().clear();
-        HashMap<Athlete, Integer> map = (HashMap<Athlete, Integer>) selectedItem.getAthleteTimes();
-        map.forEach((a, i) -> athleteGameMap.add(new AthleteMap(a.getName(), i, a.getPoints())));
-        selectedItem.getParticipants().forEach(person -> {
-            if (person instanceof Referee) {
-                athleteGameMap.add(new AthleteMap(person.getName() + " (ref)", 0, 0));
-            }
-        });
-    }
+
 
     public static void escape() {
         new Thread(() -> {
@@ -363,30 +315,6 @@ public class Main implements Initializable {
         game.setAthleteTimes(athleteTimes);
         games.add(game);
 
-    }
-
-    public class AthleteMap {
-        private String athleteName;
-        private Integer athleteTime;
-        private Integer athletePoints;
-
-        AthleteMap(String athleteName, Integer athleteTime, Integer athletePoints) {
-            this.athleteName = athleteName;
-            this.athleteTime = athleteTime;
-            this.athletePoints = athletePoints;
-        }
-
-        public String getAthleteName() {
-            return athleteName;
-        }
-
-        public Integer getAthleteTime() {
-            return athleteTime;
-        }
-
-        public Integer getAthletePoints() {
-            return athletePoints;
-        }
     }
 
     public class Competitor {

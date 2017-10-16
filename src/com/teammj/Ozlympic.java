@@ -1,16 +1,13 @@
 package com.teammj;
 
 import com.teammj.controller.Main;
-import com.teammj.controller.Toolbar;
+import com.teammj.controller.ToolbarPane;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 
@@ -37,7 +34,7 @@ public class Ozlympic extends Application {
     // Main entry point
     public static void main(String[] args) {
         if(args.length > 0) {
-            Toolbar.loadFile(args[0]);
+            ToolbarPane.loadFile(args[0]);
         }
         launch(args);
     }
