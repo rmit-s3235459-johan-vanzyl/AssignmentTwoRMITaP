@@ -1,5 +1,6 @@
 package com.teammj.controller;
 
+import com.teammj.Ozlympic;
 import com.teammj.model.DATA;
 import com.teammj.model.games.Game;
 import com.teammj.model.persons.Referee;
@@ -16,7 +17,7 @@ import java.util.ResourceBundle;
 import static com.teammj.controller.Main.athleteGameMap;
 import static com.teammj.controller.Main.games;
 
-public class CenterPane implements Initializable {
+final public class CenterPane implements Initializable {
     public TableView<Game> tblviewgames;
     public TableView<AthleteMap> tblViewGame;
 
@@ -24,6 +25,15 @@ public class CenterPane implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setupGamesTable();
         setupGameTable();
+        bindAnchors();
+    }
+
+    private void bindAnchors() {
+        tblviewgames.prefHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(350));
+        tblviewgames.maxHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(350));
+        tblViewGame.prefHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(350));
+        tblViewGame.maxHeightProperty().bind(Ozlympic.getCurrentStage().heightProperty().subtract(350));
+        tblViewGame.prefWidthProperty().bind(Ozlympic.getCurrentStage().widthProperty().subtract(958));
     }
 
     private void setupGamesTable() {

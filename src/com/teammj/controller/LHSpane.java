@@ -23,7 +23,7 @@ import static com.teammj.controller.Main.athletes;
 import static com.teammj.controller.Main.persons;
 import static com.teammj.controller.Main.officials;
 
-public class LHSpane implements Initializable {
+final public class LHSpane implements Initializable {
     public TableView<Person> tblViewPersons;
     public ToggleGroup toggleGroup;
     public TextField txtFieldAName;

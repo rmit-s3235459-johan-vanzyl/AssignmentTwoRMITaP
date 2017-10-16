@@ -28,7 +28,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.*;
 
-public class Main implements Initializable {
+final public class Main implements Initializable {
 
     private static Document document;
     static final ObservableList<Athlete> athletes = FXCollections.observableArrayList();
@@ -39,7 +39,6 @@ public class Main implements Initializable {
     static final ObservableList<AthleteMap> athleteGameMap = FXCollections.observableArrayList();
 
     public AnchorPane root;
-    public TableView<Athlete> tblViewAthletesRank;
     public TableView<Competitor> tblGameParticipants;
     public Label addPfeedback;
     public ComboBox cmbGType;
@@ -49,10 +48,7 @@ public class Main implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupGamePersonsTable();
-        setupAthletesRank();
-
         generateDocument();
-
     }
 
     private void generateDocument() {
@@ -68,18 +64,7 @@ public class Main implements Initializable {
         persons.addAll(officials);
     }
 
-    private void setupAthletesRank() {
-        TableColumn<Athlete, String> athleteName = new TableColumn<>("Name");
-        TableColumn<Athlete, Integer> athleteScore = new TableColumn<>("Points");
-        athleteName.setCellValueFactory(new PropertyValueFactory<>("name"));
-        athleteScore.setCellValueFactory(new PropertyValueFactory<>("points"));
 
-        athleteName.setPrefWidth(140.0);
-
-        tblViewAthletesRank.setItems(athletes);
-        tblViewAthletesRank.getColumns().addAll(athleteName, athleteScore);
-
-    }
 
     private void setupGamePersonsTable() {
         TableColumn<Competitor, String> nameColumn = new TableColumn<>("Name");

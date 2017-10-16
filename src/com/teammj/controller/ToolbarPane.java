@@ -15,7 +15,7 @@ import static com.teammj.controller.Main.athletes;
 import static com.teammj.controller.Main.officials;
 import static com.teammj.controller.Main.persons;
 
-public class ToolbarPane implements Initializable{
+final public class ToolbarPane implements Initializable{
     public VBox loader;
     public ToolBar rootTB;
 

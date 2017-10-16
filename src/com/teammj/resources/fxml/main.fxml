@@ -12,61 +12,54 @@
 <?import javafx.scene.layout.Pane?>
 <AnchorPane fx:id="root" minWidth="1280" minHeight="800" xmlns="http://javafx.com/javafx/8.0.121"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.teammj.controller.Main">
-    <children>
-        <BorderPane>
-            <top>
-                <fx:include source="toolbar.fxml"/>
-            </top>
-            <left>
-                <fx:include source="lhs.fxml"/>
-            </left>
-            <center>
-                <fx:include source="center.fxml"/>
-            </center>
-            <right>
-                <VBox styleClass="border-property-right">
-                    <Label styleClass="subhead" alignment="CENTER">
-                        Athlete's Rank
-                    </Label>
-                    <TableView fx:id="tblViewAthletesRank" prefHeight="${root.height - 350}"/>
-                </VBox>
-            </right>
-            <bottom>
-                <HBox styleClass="border-property-bottom" prefHeight="215">
-                    <VBox>
-                        <HBox>
-                            <Label styleClass="header" style="-fx-padding: 0 15px 0 0">
-                                New Game
-                            </Label>
-                            <ComboBox fx:id="cmbGType" promptText="Game Type">
-                                <items>
-                                    <FXCollections fx:factory="observableArrayList">
-                                        <String fx:value="Swimming"/>
-                                        <String fx:value="Sprinting"/>
-                                        <String fx:value="Cycling"/>
-                                    </FXCollections>
-                                </items>
-                            </ComboBox>
-                            <Button onMouseClicked="#clearPlayerTbl">Clear</Button>
-                        </HBox>
 
-                        <TableView fx:id="tblGameParticipants"/>
-                        <Label fx:id="addPfeedback">
-                            Drag Persons in Here!
+    <BorderPane>
+        <top>
+            <fx:include source="toolbar.fxml"/>
+        </top>
+        <left>
+            <fx:include source="lhs.fxml"/>
+        </left>
+        <center>
+            <fx:include source="center.fxml"/>
+        </center>
+        <right>
+            <fx:include source="rhs.fxml"/>
+        </right>
+        <bottom>
+            <HBox styleClass="border-property-bottom" prefHeight="215">
+                <VBox>
+                    <HBox>
+                        <Label styleClass="header" style="-fx-padding: 0 15px 0 0">
+                            New Game
                         </Label>
-                    </VBox>
-                    <VBox style="-fx-padding: 0 0 0 15px">
-                        <Pane style="-fx-padding: 15px 0 0 0">
-                            <Button styleClass="title" prefHeight="80" disable="true" fx:id="startRaceBtn"
-                                    onMouseClicked="#startRace">
-                                START RACE!!!
-                            </Button>
-                        </Pane>
-                    </VBox>
-                    <Label fx:id="didIwin"/>
-                </HBox>
-            </bottom>
-        </BorderPane>
-    </children>
+                        <ComboBox fx:id="cmbGType" promptText="Game Type">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="Swimming"/>
+                                    <String fx:value="Sprinting"/>
+                                    <String fx:value="Cycling"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                        <Button onMouseClicked="#clearPlayerTbl">Clear</Button>
+                    </HBox>
 
+                    <TableView fx:id="tblGameParticipants"/>
+                    <Label fx:id="addPfeedback">
+                        Drag Persons in Here!
+                    </Label>
+                </VBox>
+                <VBox style="-fx-padding: 0 0 0 15px">
+                    <Pane style="-fx-padding: 15px 0 0 0">
+                        <Button styleClass="title" prefHeight="80" disable="true" fx:id="startRaceBtn"
+                                onMouseClicked="#startRace">
+                            START RACE!!!
+                        </Button>
+                    </Pane>
+                </VBox>
+                <Label fx:id="didIwin"/>
+            </HBox>
+        </bottom>
+    </BorderPane>
 </AnchorPane>
